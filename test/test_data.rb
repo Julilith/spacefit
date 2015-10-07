@@ -1,11 +1,19 @@
 @tests_list={models: [
-											#:institution,
-											#:basemodel_institution,
-											#:institutional_change,
-											#:institutional_name_join
+											:user,
+#											:user_emails,
+#											:user_sessions,
+											:feedback,
+											:media,
+											:user_workouts_done,
+
 										 ],
 						controllers: [
-													:institutional_changes_controller
+											:
 												 ]
 						}
 
+
+# TODO
+#user model needs to check for facebook login
+#user emails model
+#user session needs to be tested

@@ -119,27 +119,11 @@ class UsersController < BaseController
 		redirect_to root_path
 	end
 
-#---------------------------------- followers
-	def following
-		@title="Following"
-		@user=User.find(params[:id])
-		@users=@user.followed_users.search(params[:search_user]).base_pagination(params[:page])
-		render 'show_follow'
-	end
-
-	def followers
-		@title="Followers"
-		@user=User.find(params[:id])
-		@users=@user.followers.search(params[:search_user]).base_pagination(params[:page])
-		render 'show_follow'
-	end
 
 #———————————————————————————————————Private methods———————————————————————————————#
 	private
 
-	def user_avatar
-		params[:user][:avatar]
-	end
+
 
 	def user_params
 		if action_name=="recover_password"
@@ -151,7 +135,6 @@ class UsersController < BaseController
 		else
 			pa=params.require(:user).permit(:name,:email,:password,
 																			:password_confirmation, :alias)
-			pa.merge!(avatar: sanitize_original_filename(user_avatar)) if !user_avatar.blank?
 			pa
 		end
 	end

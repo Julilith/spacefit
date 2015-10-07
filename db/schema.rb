@@ -11,16 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151006204134) do
+ActiveRecord::Schema.define(version: 20151007124021) do
+
+  create_table "feedbacks", force: :cascade do |t|
+    t.integer "user_id"
+    t.text    "text"
+  end
+
+  add_index "feedbacks", ["user_id"], name: "index_feedbacks_on_user_id"
 
   create_table "medias", force: :cascade do |t|
-    t.string "type"
+    t.string "wo_type"
     t.string "location"
     t.string "position"
     t.string "link"
   end
 
-  add_index "medias", ["type", "location", "position"], name: "index_medias_on_type_and_location_and_position"
+  add_index "medias", ["wo_type", "location", "position"], name: "index_medias_on_wo_type_and_location_and_position"
 
   create_table "user_emails", force: :cascade do |t|
     t.integer  "user_id"
@@ -42,11 +49,20 @@ ActiveRecord::Schema.define(version: 20151006204134) do
   add_index "user_sessions", ["token"], name: "index_user_sessions_on_token", unique: true
   add_index "user_sessions", ["user_id"], name: "index_user_sessions_on_user_id"
 
+  create_table "user_workouts_done", force: :cascade do |t|
+    t.integer  "media_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+  end
+
+  add_index "user_workouts_done", ["user_id"], name: "index_user_workouts_done_on_user_id"
+
   create_table "users", force: :cascade do |t|
     t.string   "name",            limit: 255
     t.string   "provider",        limit: 255
     t.string   "password_digest", limit: 255
     t.datetime "created_at"
+    t.boolean  "disclaimer"
   end
 
 end

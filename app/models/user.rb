@@ -1,10 +1,8 @@
-include Validators
-
 class User < Basemodel
 
 	#———————————————————————————————————Class data——————————————————————————————————#
 	#---------------------------------- User providers
-	PROVIDER_TYPES=["facebook", "native"]
+	PROVIDER_TYPES=["facebook", "native", "temp"]
 
 	#———————————————————————————————————Associations————————————————————————————————#
 
@@ -15,18 +13,30 @@ class User < Basemodel
 										class_name: :UserEmail,
 										inverse_of: :user
 
-	#---------------------------------- temporary tokens
-	has_many :tokens, ->{where(owner_type: "User")},
-										autosave:     true           ,
-										class_name:  :TemporaryToken ,
-										foreign_key: :owner_id       ,
-										dependent:   :destroy
+#	#---------------------------------- temporary tokens
+#	has_many :tokens, ->{where(owner_type: "User")},
+#										autosave:     true           ,
+#										class_name:  :TemporaryToken ,
+#										foreign_key: :owner_id       ,
+#										dependent:   :destroy
 
 	#---------------------------------- temporary tokens
 	has_many :sessions, autosave:    true       ,
 											class_name: :UserSession,
 											dependent:  :destroy,
 											inverse_of: :user
+
+	#---------------------------------- feedbakcs
+	has_many :feedbacks, dependent:  :destroy  ,
+											autosave:    true     ,
+											inverse_of: :user
+
+	#---------------------------------- workouts
+	has_many :workouts_done, dependent: :destroy,
+													 class_name: :UserWorkoutsDone,
+													 inverse_of: :user
+
+
 
 	#———————————————————————————————————Scopes——————————————————————————————————————#
 
@@ -46,18 +56,27 @@ class User < Basemodel
 	validates :password, length: {minimum: 4, maximum: 25}, allow_nil: true
 	validates :emails  , presence:   true
 	validates :provider, inclusion: { in: PROVIDER_TYPES }
+	validates :disclaimer, inclusion: { in: [true] }
 
 	#———————————————————————————————————Callbacks———————————————————————————————————#
-	# add provider if blank
-	before_validation ->{self.provider="native" if self.provider.nil? }
 
 	# add random password for Linked in and Fb accounts
-	before_validation ->{ if self.password.blank? && self.provider!="native"
+	before_validation ->{ if self.password.blank? && !(["native","temp"].include?(self.provider))
+												lput "this is active"
 													self.password=Token.new.value.to_s
 													self.password_confirmation=self.password
 												end}, on: :create
 
 	#———————————————————————————————————Methods—————————————————————————————————————#
+
+
+	def populate_temp_user(token_=nil)
+		_token=token_||Token.new
+		self.password=_token.value.to_s
+		self.password_confirmation=self.password
+		self.email=("#{self.password.to_s}@spacefit.com")
+		return _token
+	end
 
 	#----------------------------------unique email
 	def email

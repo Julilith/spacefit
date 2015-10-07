@@ -18,7 +18,8 @@ class SignUpsController < ApplicationController
 		end
 	end
 
-	def create
+	#TODO You must give a provider!!!!!!!!
+	def create  
 		@user=User.new
 		@user.assign_attributes(user_params)
 		token=@user.process_token("confirm_email")
@@ -41,37 +42,6 @@ class SignUpsController < ApplicationController
 		try||=3; retry if (try-=1)<1
 		user.wipe
 		redirect_to root_path
-	end
-
-
-	def linkedin
-		user=User.new;
-		if user.linkedin_info(auth_hash)=='mail missing'
-			flash[:error]='Sign up failed, we need your email to sign you up'
-			redirect_to root_path
-		elsif euser=User.whos_email_is(user.email).first
-			if euser.provider=='linkedin'
-				#fix me we need to check the data and update the use again
-				sign_in! euser
-			elsif euser.provider="facebook"
-				flash[:error]="Your are already signed up with a Facebook account,
-													sign in with LinkedIn
-													"
-			else
-				flash[:error]="You are already signed up with us, request a
-							 <a class='text_light'
-									data-remote='true'
-									href='/recover_password_new'
-									data-actions=#{{remove: ".alert.alert-error"}.to_json}>
-									new password</a>
-							 if you have forgotten yours".html_safe
-			end
-			redirect_to root_path
-		else
-			user.save
-			sign_in! user
-			redirect_to edit_user_path(current_user)
-		end
 	end
 
 	def facebook

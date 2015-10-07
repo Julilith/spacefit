@@ -1,16 +1,10 @@
 Rails.application.routes.draw do
-  
   #—————user routes
   resources :users, except: [:new, :create] do
-    collection do
-      get :email_used
-    end
     member do
       put  :update_password
       put  :update_email
-      get  :following, :followers
     end
-    #resources :affiliation, only:[:create,:update,:destroy]
   end
   match '/recover_password/:token',
                           to: 'users#recover_password', via: 'get', as:  'reset_password'
@@ -25,9 +19,6 @@ Rails.application.routes.draw do
                                                                     as: "auth"
   match 'auth/facebook/callback',
                           to: 'sign_ups#facebook',
-                                                        via: [:get, :post]
-  match 'auth/linkedin/callback',
-                          to: 'sign_ups#linkedin',
                                                         via: [:get, :post]
   match 'auth/failure',   to: 'static_pages#home',      via: [:get, :post]
 
