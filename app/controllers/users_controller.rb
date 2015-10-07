@@ -1,33 +1,17 @@
 class UsersController < BaseController
 
-	include  MyMethods
-	include Permissions
-
-#———————————————————————————————————Before actions————————————————————————————————#
-
-#	before_action only:[:edit, :update] {
-#		continue_if current_user, is: [:signed_in], is_either:[:itself, :admin], els: soft_redirect}
-#	before_action only:[:destroy] {
-#		continue_if current_user, is: [:signed_in], is_either:[:itself, :admin], els: simple_back}
-#	before_action only:[:new, :create] {
-#		continue_if current_user, isnt: [:signed_in], but_is_either:[:admin], els: simple_back}
-
-#———————————————————————————————————Actions———————————————————————————————————————#
-
-#---------------------------------- index
-	def index
-		@users = User.paginate_search(params[:search_user], params[:page])
-	end
 
 #---------------------------------- show
 	def show
 	end
 
+	def apply_changes
+	end
 #---------------------------------- edit
 	# Edit user methods
 	def edit;
-		@user=current_user{ eager_load(:emails)}
-		@info=current_user.info
+		#@user=current_user{ eager_load(:emails)}
+		#@info=current_user.info
 	end
 
 	def update_password

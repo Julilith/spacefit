@@ -1,7 +1,14 @@
 Rails.application.routes.draw do
+
+  #—————workout
+  match "/workout", to: "workouts#select", via: "get"
+  match "/workout", to: "workouts#show", via: "post"
+
+
   #—————user routes
-  resources :users, except: [:new, :create] do
+  resources :users, except: [:index] do
     member do
+      put  :update, as: "apply_changes"
       put  :update_password
       put  :update_email
     end
