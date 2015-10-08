@@ -13,12 +13,15 @@
 
 ActiveRecord::Schema.define(version: 20151007124021) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "feedbacks", force: :cascade do |t|
     t.integer "user_id"
     t.text    "text"
   end
 
-  add_index "feedbacks", ["user_id"], name: "index_feedbacks_on_user_id"
+  add_index "feedbacks", ["user_id"], name: "index_feedbacks_on_user_id", using: :btree
 
   create_table "medias", force: :cascade do |t|
     t.string "wo_type"
@@ -27,7 +30,7 @@ ActiveRecord::Schema.define(version: 20151007124021) do
     t.string "link"
   end
 
-  add_index "medias", ["wo_type", "location", "position"], name: "index_medias_on_wo_type_and_location_and_position"
+  add_index "medias", ["wo_type", "location", "position"], name: "index_medias_on_wo_type_and_location_and_position", using: :btree
 
   create_table "user_emails", force: :cascade do |t|
     t.integer  "user_id"
@@ -36,8 +39,8 @@ ActiveRecord::Schema.define(version: 20151007124021) do
     t.datetime "created_at"
   end
 
-  add_index "user_emails", ["email"], name: "index_user_emails_on_email", unique: true
-  add_index "user_emails", ["user_id", "confirmed"], name: "index_user_emails_on_user_id_and_confirmed", unique: true
+  add_index "user_emails", ["email"], name: "index_user_emails_on_email", unique: true, using: :btree
+  add_index "user_emails", ["user_id", "confirmed"], name: "index_user_emails_on_user_id_and_confirmed", unique: true, using: :btree
 
   create_table "user_sessions", force: :cascade do |t|
     t.integer  "user_id"
@@ -45,9 +48,9 @@ ActiveRecord::Schema.define(version: 20151007124021) do
     t.datetime "created_at"
   end
 
-  add_index "user_sessions", ["created_at"], name: "index_user_sessions_on_created_at"
-  add_index "user_sessions", ["token"], name: "index_user_sessions_on_token", unique: true
-  add_index "user_sessions", ["user_id"], name: "index_user_sessions_on_user_id"
+  add_index "user_sessions", ["created_at"], name: "index_user_sessions_on_created_at", using: :btree
+  add_index "user_sessions", ["token"], name: "index_user_sessions_on_token", unique: true, using: :btree
+  add_index "user_sessions", ["user_id"], name: "index_user_sessions_on_user_id", using: :btree
 
   create_table "user_workouts_done", force: :cascade do |t|
     t.integer  "media_id"
@@ -55,7 +58,7 @@ ActiveRecord::Schema.define(version: 20151007124021) do
     t.datetime "created_at"
   end
 
-  add_index "user_workouts_done", ["user_id"], name: "index_user_workouts_done_on_user_id"
+  add_index "user_workouts_done", ["user_id"], name: "index_user_workouts_done_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name",            limit: 255
