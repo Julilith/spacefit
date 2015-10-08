@@ -6,28 +6,30 @@
           <header class="panel-heading text-center">
             Sign in
           </header>
-          <form action="index.html" class="panel-body">
+          <%= form_for User.new, url: "/signin", method: "post"  do |f| %>
             <div class="block">
               <label class="control-label">Email</label>
-              <input type="email" placeholder="test@example.com" class="form-control">
+              <%= f.text_field :email, placeholder: "test@example.com", class: "form-control" %>
             </div>
             <div class="block">
               <label class="control-label">Password</label>
-              <input type="password" id="inputPassword" placeholder="Password" class="form-control">
+              <%= f.password_field :password, placeholder: "Password", class: "form-control" %>
             </div>
             <div class="checkbox">
               <label>
-                <input type="checkbox"> Keep me logged in
+                <%= check_box_tag :keep, 1, false,name: "user[keep]", id: "user_keep" %>Keep me logged in
               </label>
             </div>
-            <a href="#" class="pull-right m-t-mini"><small>Forgot password?</small></a>
-            <a class="btn btn-info" href="users/1/edit">Sign in</a>
-            <div class="line line-dashed"></div>
-            <a href="#" class="btn btn-facebook btn-block m-b-small"><i class="fa fa-facebook pull-left"></i>Sign in with Facebook</a>
-            <div class="line line-dashed"></div>
-            <p class="text-muted text-center"><small>Do not have an account?</small></p>
-            <a href="signup.html" class="btn btn-white btn-block">Create an account</a>
-          </form>
+            <button type="submit" class="btn btn-info">Sign up</button>
+          <% end %>
+
+          <a href="#" class="pull-right m-t-mini"><small>Forgot password?</small></a>
+          <div class="line line-dashed"></div>
+          <a href="#" class="btn btn-facebook btn-block m-b-small"><i class="fa fa-facebook pull-left"></i>Sign in with Facebook</a>
+          <div class="line line-dashed"></div>
+          <p class="text-muted text-center"><small>Do not have an account?</small></p>
+          <a href="signup.html" class="btn btn-white btn-block">Create an account</a>
+
         </section>
       </div>
     </div>

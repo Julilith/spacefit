@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root 'static_pages#home'
+  #match "/", to: "static_pages#home", via: "get"
 
   #—————workout
   match "/workout", to: "workouts#select", via: "get"
@@ -40,6 +42,7 @@ Rails.application.routes.draw do
   #—————Session routes
   resources :sessions ,     only:[:create]
   match '/signin'     ,     to: 'sessions#new',           via: 'get'
+  match '/signin'     ,     to: 'sessions#create',        via: 'post'
   match '/onmyway'    ,     to: 'sessions#redirect',      via: 'get' #FIXME what is this one for?
   match '/signout'    ,     to: 'sessions#destroy',       via: 'delete'
 

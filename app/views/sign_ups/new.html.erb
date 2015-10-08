@@ -6,25 +6,26 @@
           <header class="panel-heading text-center">
             Sign up
           </header>
-          <form action="index.html" class="panel-body">
+          <%= form_for User.new, url: "/signup", method: "post"  do |f| %>
             <div class="block">
               <label class="control-label">Display name</label>
-              <input type="text" placeholder="eg. Your name or company" class="form-control">
+              <%= f.text_field :name, placeholder: "eg. Your name or company", class: "form-control" %>
             </div>
             <div class="block">
               <label class="control-label">Your email address</label>
-              <input type="email" placeholder="test@example.com" class="form-control">
+              <%= f.text_field :email, placeholder: "test@example.com", class: "form-control" %>
             </div>
             <div class="block">
               <label class="control-label">Type a password</label>
-              <input type="password" id="inputPassword" placeholder="Password" class="form-control">
+              <%= f.password_field :password, placeholder: "Password", class: "form-control" %>
             </div>
             <div class="checkbox">
               <label>
-                <input type="checkbox"> Agree the <a href="#">terms and policy</a>
+              <%= f.check_box :disclaimer %>Agree the <a href="#">terms and policy</a>
               </label>
             </div>
             <button type="submit" class="btn btn-info">Sign up</button>
+          <% end %>
             <div class="line line-dashed"></div>
             <div class="row">
               <div class="col-sm-6 text-center">
@@ -37,7 +38,6 @@
             <div class="line line-dashed"></div>
             <p class="text-muted text-center"><small>Already have an account?</small></p>
             <a href="signin.html" class="btn btn-white btn-block">Sign in</a>
-          </form>
         </section>
       </div>
     </div>

@@ -14,10 +14,13 @@
 </head>
 <body>
   <%= render'layouts/header'%>
-  <%= render partial: 'layouts/footer' %>
+  <% flash.each do |f_| %>
+    <div> <%= f_ %> </div>
+  <% end %>
   <%= yield %>
+  <%= render partial: 'layouts/footer' %>
 
-  <%# javascript_include_tag 'application' %>
+  <%- javascript_include_tag 'application' %>
   <%# yield(:after_js) %>
 
 </body>

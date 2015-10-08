@@ -33,7 +33,8 @@ module CurrentUser
 		end
 
 		def signed_in?
-			current.id!=nil
+			current.id!=nil && current.provider!="temp"
+
 			#!cookie_token.nil? ? @current_user.sessions.token==cookie_token : false
 		end
 

@@ -50,6 +50,7 @@ class SessionsController < BaseController
 	#---------------------------------- sing out
 	def destroy
 		current_user.sign_out!
+		@success="See you next time"
 		reply(success_reply)
 	end
 

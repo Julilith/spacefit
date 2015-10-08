@@ -3,6 +3,7 @@ class UsersController < BaseController
 
 #---------------------------------- show
 	def show
+		
 	end
 
 	def apply_changes

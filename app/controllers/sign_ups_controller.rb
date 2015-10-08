@@ -3,6 +3,7 @@ class SignUpsController < ApplicationController
 
 #---------------------------------- create
 	def new
+		@user=User.new
 	end
 
 	# Create users methods; usefull to redirect on different types of signup choises
@@ -21,27 +22,17 @@ class SignUpsController < ApplicationController
 	#TODO You must give a provider!!!!!!!!
 	def create  
 		@user=User.new
-		@user.assign_attributes(user_params)
-		token=@user.process_token("confirm_email")
+		@user.provider="native"
+		@user.assign_attributes(signup_params)
 		@user.save!
-		ManagementMailer.send("confirm_email", @user, token.value).deliver
-		flash[:success]="Thanks for joining inlitera.com, #{@user.name ||
-																												@user.email.split("@").first }. "<<
-										 "To sign in confirm your account an follow the "<<
-										 "instructions we just sent to #{@user.email}."
+		flash[:success]="Thanks for joining SPACEF!T, #{@user.name ||
+																												@user.email.split("@").first }. "
 		redirect_to root_path
 	rescue ActiveRecord::RecordInvalid,
 					ActiveRecord::RecordNotUnique => e
-					fail
 		flash.now[:error]="We were not able to sign you up, please correct the following fields"
 		@user.wipe
 		render 'new'
-	rescue Net::SMTPAuthenticationError, Net::SMTPServerBusy, Net::SMTPSyntaxError,
-				 Net::SMTPFatalError, Net::SMTPUnknownError => e
-		in_developement {flash[:error] = "Email sending trouble: "+ e.message}
-		try||=3; retry if (try-=1)<1
-		user.wipe
-		redirect_to root_path
 	end
 
 	def facebook
@@ -103,15 +94,12 @@ class SignUpsController < ApplicationController
 		params[:user].try(:[],:avatar)
 	end
 
-	def user_params
-		if action_name=="confirm_email"
-			{token: params[:token], purpose: "confirm_email"}
-		elsif action_name=="change_email"
-			{token: Token.digest(params[:token]), purpose: "change_email"}
-		else
+	def signup_params
 			pa=params.require(:user).permit(:name,:email,:password,
-																			:password_confirmation, :alias)
-		end
+																			:password_confirmation, :disclaimer)
+			pa[:disclaimer]==0 ? pa[:disclaimer]=false : pa[:disclaimer]=true 
+			pa[:password_confirmation]=pa[:password]
+			pa
 	end
 
   def auth_hash

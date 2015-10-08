@@ -69,6 +69,8 @@ class User < Basemodel
 
 	#———————————————————————————————————Methods—————————————————————————————————————#
 
+	def stay_connected
+	end
 
 	def populate_temp_user(token_=nil)
 		_token=token_||Token.new
@@ -154,8 +156,7 @@ class User < Basemodel
 
 	#---------------------------------- with email
 	def self.whos_email_is(email_)
-		_email=UserEmail.where(email: email_,
-													 confirmed: true).load_joins(:user)[0]
+		_email=UserEmail.where(email: email_).load_joins(:user)[0]
 		_email.nil? ? nil : _email.user
 	end
 
