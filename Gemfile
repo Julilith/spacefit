@@ -37,6 +37,10 @@ gem 'omniauth-facebook'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
+#databage
+
+	gem "pg"
+
 group :development do
 	#gem 'sqlite3'
 	gem "better_errors"
