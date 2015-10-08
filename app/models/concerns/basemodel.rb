@@ -1,6 +1,10 @@
 class Basemodel < ActiveRecord::Base
+
+
 	include MyMethods
 	include Token
+	#---------------------------------- a method to store queries with where
+	include MonkeyRecord::Preload
 
 	attr_accessor :destroyed, :stored_ass, :record_already_validated, :record_in_validation
 	self.abstract_class = true
@@ -89,8 +93,6 @@ class Basemodel < ActiveRecord::Base
 	end
 
 
-	#---------------------------------- a method to store queries with where
-	include MonkeyRecord::Preload
 
 	#---------------------------------- disable timestamps
 

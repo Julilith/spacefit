@@ -31,16 +31,8 @@ Rails.application.config.middleware.use OmniAuth::Builder do
 #————                      >>>>>>>>>load stuff<<<<<<<<<                       ————#
 #—————————————————————————————————————————————————————————————————————————————————#
 
-# Load testers for test asset libraries, they are supposed to be generic commands
-Dir[File.join(Rails.root, "lib", "tools","*.rb")].each {|l_| require l_ }
-
-Dir[File.join(Rails.root, "lib", "assets","**","*.rb")].each {|l_| require l_ }
-
-# Load core extension
-Dir[File.join(Rails.root, "lib", "core_ext", "*.rb")].each {|l| require l }
-
-# Load rails extension
-Dir[File.join(Rails.root, "lib", "rails_ext", "*.rb")].each {|l_| require l_ }
+# Load all libraries
+Dir[File.join(Rails.root, "lib", "*.rb")].each {|l_| require l_ }
 
 # Load testers for test env
 if Rails.env=="test"
