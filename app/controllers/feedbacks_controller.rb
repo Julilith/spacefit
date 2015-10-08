@@ -1,6 +1,5 @@
 class FeedbacksController< ApplicationController
 	include MyMethods
-	include Permissions
 
 #———————————————————————————————————Before actions————————————————————————————————#
 	before_action except:[:create] {
