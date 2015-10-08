@@ -27,6 +27,7 @@ class SignUpsController < ApplicationController
 		@user.save!
 		flash[:success]="Thanks for joining SPACEF!T, #{@user.name ||
 																												@user.email.split("@").first }. "
+		sign_in!(@user, true)
 		redirect_to root_path
 	rescue ActiveRecord::RecordInvalid,
 					ActiveRecord::RecordNotUnique => e
@@ -97,7 +98,7 @@ class SignUpsController < ApplicationController
 	def signup_params
 			pa=params.require(:user).permit(:name,:email,:password,
 																			:password_confirmation, :disclaimer)
-			pa[:disclaimer]==0 ? pa[:disclaimer]=false : pa[:disclaimer]=true 
+			pa[:disclaimer]==1 ? pa[:disclaimer]=false : pa[:disclaimer]=true 
 			pa[:password_confirmation]=pa[:password]
 			pa
 	end
