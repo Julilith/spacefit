@@ -2,7 +2,7 @@ module PrintingMethods
 
 	# define common functions for the whole application
 	def lput(*args_)
-		line_length=IO.console.winsize[1]-1
+		line_length=80 #IO.console.winsize[1]-1
 		#_output= args_.blank? ? args_ : ["NOTHING TO PRINT"]
 
 		puts green_string("—"*line_length)
@@ -13,7 +13,7 @@ module PrintingMethods
 	end
 
 	def fput(arg0_=nil, arg1_=nil, ret=nil)
-		line_length=IO.console.winsize[1]-1
+		line_length=80 #IO.console.winsize[1]-1
 		puts green_string("—"*line_length)
 		puts yellow_string("=========>") + cyan_string(self.class.to_s)
 		puts yellow_string("=========>") + cyan_string(caller[0])
