@@ -6,7 +6,7 @@ class Quote <Basemodel
 
 	has_many :given_to, class_name: "UserQuote",
 										 dependent: :destroy,
-										 invers_of: :quote
+										 inverse_of: :quote
 
 
 	#———————————————————————————————————Validations—————————————————————————————————#
