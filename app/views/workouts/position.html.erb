@@ -1,0 +1,26 @@
+<div class="container">
+  <div id="content">
+    <section class="main">
+      <div class="row">
+        <div class="col-xs-12">
+          <p class="text-center"><strong>I'm</strong></p>
+        </div>
+
+        <% [["Sitting",     "sit", "sit-icon.png"   ],
+            ["Standing up", "up",  "up-icon.png"]].each do |text_, position_, image_|%>
+          <div class="col-xs-12">
+            <a class="panel" href="<%= workout_show_path(type: params[:type], position: position_) %>">
+              <div class="panel-body">
+                <h2 class="action-text">
+                  <%= image_tag(image_, size: "40x40", alt: position_) %>
+                  <small><%= text_ %></small>
+                </h2>
+              </div>
+            </a>
+          </div>
+        <% end %>
+
+      </div>
+    </section>
+  </div>
+</div>

@@ -7,25 +7,30 @@
 
 def exec_my(to_load=true)
 
-=begin
+_videos=[
+{type: "fit", location: "unknown", position: "sit", link: "https://www.youtube.com/embed/1xC9khisFPA"},
+{type: "fit", location: "unknown", position: "sit", link: "https://www.youtube.com/embed/2AuLqYh4irI"},
+{type: "fit", location: "unknown", position: "sit", link: "https://www.youtube.com/embed/OC9VbwyEG8U"},
+{type: "fit", location: "unknown", position: "up", link: "https://www.youtube.com/embed/fcN37TxBE_s"},
+{type: "fit", location: "unknown", position: "up", link: "https://www.youtube.com/embed/oQD-Gzm7nl8"},
+{type: "fit", location: "unknown", position: "up", link: "https://www.youtube.com/embed/qWy_aOlB45Y"},
+{type: "relax", location: "unknown", position: "unknown", link: "https://www.youtube.com/embed/fcN37TxBE_s"},
+{type: "relax", location: "unknown", position: "unknown", link: "https://www.youtube.com/embed/oQD-Gzm7nl8"},
+{type: "relax", location: "unknown", position: "unknown", link: "https://www.youtube.com/embed/qWy_aOlB45Y"},
+{type: "stretch", location: "unknown", position: "sit", link: "https://www.youtube.com/embed/XewzQ9MRDh8"},
+{type: "stretch", location: "unknown", position: "sit", link: "https://www.youtube.com/embed/a9WC_eLmP30"},
+{type: "stretch", location: "unknown", position: "sit", link: "https://www.youtube.com/embed/fxsQr7YOq7o"},
+{type: "stretch", location: "unknown", position: "up", link: "https://www.youtube.com/embed/8PwKwjrkJkE"},
+{type: "stretch", location: "unknown", position: "up", link: "https://www.youtube.com/embed/OQwhbXfcUmc"},
+{type: "stretch", location: "unknown", position: "up", link: "https://www.youtube.com/embed/4haS8w44jOo"}
+]
 
-		_institution=Institution.last
-		_type=:change_location
-		_args       = {type:    _type,
-									ielement: _institution,
-									reason:  InstitutionalChange::REASONS[_type][0],
-									user:    User.first,
-									details: {coordinates: [BigDecimal(42.374421 , 10), BigDecimal(-71.118302, 10)],
-														updated_at: _institution.updated_at }
-									}
-
-		_ichange=InstitutionalChange.new(_args)
-		_ichange.valid?
-
-=end
-
+	_i=0
+	_videos.each do |v_|
+		lput _i+=1
+		Media.new(v_).save!
+	end
 
 end
 
-exec_my
- 
+

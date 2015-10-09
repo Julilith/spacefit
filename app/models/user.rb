@@ -6,6 +6,7 @@ class User < Basemodel
 
 	#———————————————————————————————————Associations————————————————————————————————#
 
+
 	#---------------------------------- emails
 	has_many :emails, dependent:  :destroy  ,
 										autosave:    true     ,
@@ -19,6 +20,7 @@ class User < Basemodel
 #										class_name:  :TemporaryToken ,
 #										foreign_key: :owner_id       ,
 #										dependent:   :destroy
+	
 
 	#---------------------------------- temporary tokens
 	has_many :sessions, autosave:    true       ,
@@ -28,15 +30,27 @@ class User < Basemodel
 
 	#---------------------------------- feedbakcs
 	has_many :feedbacks, dependent:  :destroy  ,
-											autosave:    true     ,
-											inverse_of: :user
+											 autosave:    true     ,
+											 inverse_of: :user
 
 	#---------------------------------- workouts
 	has_many :workouts_done, dependent: :destroy,
 													 class_name: :UserWorkoutsDone,
 													 inverse_of: :user
 
+	#---------------------------------- quotes
+	has_many :quotes_given, dependent: :destroy,
+													class_name: :UserQuote,
+													inverse_of: :user
 
+	#---------------------------------- apprank
+	has_one :given_apprank, dependent:  :destroy,
+													 class_name: :UserAppRank,
+													 inverse_of: :user
+
+	has_many :liked_media, dependent: :destroy,
+												 class_name: :UserLikesMedia,
+												 inverse_of: :user
 
 	#———————————————————————————————————Scopes——————————————————————————————————————#
 

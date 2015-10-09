@@ -3,9 +3,11 @@ Rails.application.routes.draw do
   #match "/", to: "static_pages#home", via: "get"
 
   #—————workout
-  match "/workout", to: "workouts#select", via: "get"
-  match "/workout", to: "workouts#show", via: "post"
+  match "/workout_type"    , to: "workouts#type"    , via: "get", as: "workout_type"
+  match "/workout_location", to: "workouts#location", via: "get", as: "workout_location"
+  match "/workout_position", to: "workouts#position", via: "get", as: "workout_position"
 
+  match "/workout_show",     to: "workouts#show", via: "get", as: "workout_show"
 
   #—————user routes
   resources :users, except: [:index] do
@@ -13,6 +15,7 @@ Rails.application.routes.draw do
       put  :update, as: "apply_changes"
       put  :update_password
       put  :update_email
+      post :like_media, as: "like_media"
     end
   end
   match '/recover_password/:token',

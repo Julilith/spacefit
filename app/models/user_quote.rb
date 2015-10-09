@@ -1,43 +1,26 @@
-
-class Media < Basemodel
-
-	self.table_name = "medias"
-
-	TYPE    =["fit", "relax", "stretch", "unknown"]
-	LOCATION=["home", "office", "travel", "unknown"]
-	POSITION =["up", "sit", "unknown"]
-	MAX=2
+class UserQuote < Basemodel
 	#———————————————————————————————————Class data——————————————————————————————————#
-
+	self.table_name= "user_quotes"
 	#———————————————————————————————————Associations————————————————————————————————#
 
-	#---------------------------------- user_workouts_done
-	has_many   :usage_history, class_name: :UserWorkoutsDone
+	#---------------------------------- user
+	belongs_to :user, inverse_of: :quotes_given
+
+	#---------------------------------- quote
+	belongs_to :quote, inverse_of: :given_to
 
 	#———————————————————————————————————Validations—————————————————————————————————#
-	validates :type,     inclusion: { in: TYPE }
-	validates :location, inclusion: { in: LOCATION }
-	validates :position, inclusion: { in: POSITION }
-	validates :link,     presence: true
+	validates :text,     presence: true
+	validates :author,   presence: true
+	validates :lang,  inclusion: { in: LANG }
 
 	#———————————————————————————————————Callbacks———————————————————————————————————#
 
+
 	#———————————————————————————————————Scopes——————————————————————————————————————#
-	scope :select_video, ->(params_) {
-		where.
-		not(id: params_[:id]).order("RANDOM()").
-		where({wo_type: params_[:type], location: params_[:location], position: params_[:position]}.no_blank)
-		.limit(1)
+	scope :select_quote, ->(params_) {
+		order("RANDOM()").limit(1)
 	}
 
 	#———————————————————————————————————Methods—————————————————————————————————————#
-
-	def type=(name_)
-		self.wo_type=name_
-	end
-
-	def type
-		self.wo_type
-	end
-
 end

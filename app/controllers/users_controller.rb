@@ -1,6 +1,13 @@
 class UsersController < BaseController
 
 
+#---------------------------------- media
+	def like_media
+		current_user.liked_media.new(media_id: params[:liked_media].to_i).save!
+
+	#rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotUnique
+		redirect_to(:back)
+	end
 #---------------------------------- show
 	def show
 		
@@ -8,6 +15,11 @@ class UsersController < BaseController
 
 	def apply_changes
 	end
+
+
+
+
+
 #---------------------------------- edit
 	# Edit user methods
 	def edit;
