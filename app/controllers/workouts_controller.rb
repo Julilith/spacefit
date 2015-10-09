@@ -9,6 +9,11 @@ class WorkoutsController< ApplicationController
 	def position
 	end
 
+	def reload
+		@media=Media.where(id: params[:reload_id])[0]
+		render "show"
+	end
+
 	def show
 		if workout_params[:id].blank?
 			@media=Media.select_video(workout_params)[0]

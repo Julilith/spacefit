@@ -7,7 +7,8 @@ Rails.application.routes.draw do
   match "/workout_location", to: "workouts#location", via: "get", as: "workout_location"
   match "/workout_position", to: "workouts#position", via: "get", as: "workout_position"
 
-  match "/workout_show",     to: "workouts#show", via: "get", as: "workout_show"
+  match "/workout_show",    to: "workouts#show", via: "get", as: "workout_show"
+  match "/workout_reload",  to: "workouts#reload", via: "get", as: "workout_reload"
 
   #—————user routes
   resources :users, except: [:index] do
