@@ -1,23 +1,20 @@
-class FeedbacksController< ApplicationController
+class FeedbacksController< BaseController
 
 	def new
-		@user=current_user
 	end
 
 	def create
-		_user=User.where(feedback_params[:user_id])[0]
-		_feedback=_user.feedbacks.new(text: feedback_params[:text])
-		_feedback.save!
+		current_user.feedbacks.new(text: feedback_params[:text]).save!
 		@success="Thanks for writing"
 	rescue ActiveRecord::RecordInvalid
 	ensure
-		reply(success_reply)
+		reply(success_reply @success)
 	end
 
 private
 
 	def feedback_params
-		parama.require(:feedback).permit(:user_id, :text)
+		params.require(:feedback).permit(:user_id, :text)
 	end
 
 end

@@ -11,6 +11,13 @@ class WorkoutsController< ApplicationController
 
 	def reload
 		@media=Media.where(id: params[:reload_id])[0]
+		params=params.merge({type: @media.type,
+												position: @media.position,
+												location: @media.location}.reject {|k_, v_| v_=="unknown"}
+												)
+		current_user.workouts_done.new(media_id: @media.id).save!
+	rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotUnique
+	ensure
 		render "show"
 	end
 
@@ -25,6 +32,9 @@ class WorkoutsController< ApplicationController
 		end
 		@media||=Media.new
 
+	end
+
+	def completed
 	end
 
 private

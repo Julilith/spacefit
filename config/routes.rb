@@ -2,13 +2,17 @@ Rails.application.routes.draw do
   root 'static_pages#home'
   #match "/", to: "static_pages#home", via: "get"
 
+  #—————feedback
+  resources :feedbacks, only: [:new, :create]
+
   #—————workout
   match "/workout_type"    , to: "workouts#type"    , via: "get", as: "workout_type"
   match "/workout_location", to: "workouts#location", via: "get", as: "workout_location"
   match "/workout_position", to: "workouts#position", via: "get", as: "workout_position"
 
-  match "/workout_show",    to: "workouts#show", via: "get", as: "workout_show"
-  match "/workout_reload",  to: "workouts#reload", via: "get", as: "workout_reload"
+  match "/workout_show",     to: "workouts#show", via: "get", as: "workout_show"
+  match "/workout_reload",   to: "workouts#reload", via: "get", as: "workout_reload"
+  match "/workout_completed",to: "workouts#completed", via: "get", as: "workout_completed"
 
   #—————user routes
   resources :users, except: [:index] do
