@@ -16,7 +16,7 @@ Rails.application.routes.draw do
       put  :update, as: "apply_changes"
       put  :update_password
       put  :update_email
-      post :like_media, as: "like_media"
+      put  :like_media, as: "like_media"
     end
   end
   match '/recover_password/:token',
