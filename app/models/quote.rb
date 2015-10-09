@@ -5,7 +5,7 @@ class Quote <Basemodel
 	#———————————————————————————————————Associations————————————————————————————————#
 
 	has_many :given_to, class_name: "UserQuote",
-										 dependet: :destroy,
+										 dependent: :destroy,
 										 invers_of: :quote
 
 
