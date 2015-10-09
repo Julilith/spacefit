@@ -11,17 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151007124021) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+ActiveRecord::Schema.define(version: 20151009134527) do
 
   create_table "feedbacks", force: :cascade do |t|
     t.integer "user_id"
     t.text    "text"
   end
 
-  add_index "feedbacks", ["user_id"], name: "index_feedbacks_on_user_id", using: :btree
+  add_index "feedbacks", ["user_id"], name: "index_feedbacks_on_user_id"
 
   create_table "medias", force: :cascade do |t|
     t.string "wo_type"
@@ -30,7 +27,20 @@ ActiveRecord::Schema.define(version: 20151007124021) do
     t.string "link"
   end
 
-  add_index "medias", ["wo_type", "location", "position"], name: "index_medias_on_wo_type_and_location_and_position", using: :btree
+  add_index "medias", ["wo_type", "location", "position"], name: "index_medias_on_wo_type_and_location_and_position"
+
+  create_table "quotes", force: :cascade do |t|
+    t.string "text"
+    t.string "author"
+    t.string "language"
+  end
+
+  create_table "user_appranks", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "rank"
+  end
+
+  add_index "user_appranks", ["user_id"], name: "index_user_appranks_on_user_id", unique: true
 
   create_table "user_emails", force: :cascade do |t|
     t.integer  "user_id"
@@ -39,8 +49,22 @@ ActiveRecord::Schema.define(version: 20151007124021) do
     t.datetime "created_at"
   end
 
-  add_index "user_emails", ["email"], name: "index_user_emails_on_email", unique: true, using: :btree
-  add_index "user_emails", ["user_id", "confirmed"], name: "index_user_emails_on_user_id_and_confirmed", unique: true, using: :btree
+  add_index "user_emails", ["email"], name: "index_user_emails_on_email", unique: true
+  add_index "user_emails", ["user_id", "confirmed"], name: "index_user_emails_on_user_id_and_confirmed", unique: true
+
+  create_table "user_likes_media", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "media_id"
+  end
+
+  add_index "user_likes_media", ["user_id", "media_id"], name: "index_user_likes_media_on_user_id_and_media_id", unique: true
+
+  create_table "user_quotes", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "quote_id"
+  end
+
+  add_index "user_quotes", ["user_id", "quote_id"], name: "index_user_quotes_on_user_id_and_quote_id"
 
   create_table "user_sessions", force: :cascade do |t|
     t.integer  "user_id"
@@ -48,9 +72,9 @@ ActiveRecord::Schema.define(version: 20151007124021) do
     t.datetime "created_at"
   end
 
-  add_index "user_sessions", ["created_at"], name: "index_user_sessions_on_created_at", using: :btree
-  add_index "user_sessions", ["token"], name: "index_user_sessions_on_token", unique: true, using: :btree
-  add_index "user_sessions", ["user_id"], name: "index_user_sessions_on_user_id", using: :btree
+  add_index "user_sessions", ["created_at"], name: "index_user_sessions_on_created_at"
+  add_index "user_sessions", ["token"], name: "index_user_sessions_on_token", unique: true
+  add_index "user_sessions", ["user_id"], name: "index_user_sessions_on_user_id"
 
   create_table "user_workouts_done", force: :cascade do |t|
     t.integer  "media_id"
@@ -58,7 +82,7 @@ ActiveRecord::Schema.define(version: 20151007124021) do
     t.datetime "created_at"
   end
 
-  add_index "user_workouts_done", ["user_id"], name: "index_user_workouts_done_on_user_id", using: :btree
+  add_index "user_workouts_done", ["user_id"], name: "index_user_workouts_done_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "name",            limit: 255

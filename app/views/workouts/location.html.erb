@@ -1,0 +1,27 @@
+<div class="container">
+  <div id="content">
+    <section class="main">
+      <div class="row">
+        <div class="col-xs-12">
+          <p class="text-center"><strong>I'm</strong></p>
+        </div>
+
+        <% [["at Home",    "home"   , "fa-home"],
+            ["at Work",    "office", "fa-briefcase"],
+            ["Travelling", "travel", "fa-plane"]].each do |text_, location_, icon_|%>
+          <div class="col-xs-12">
+            <a class="panel" href="<%= workout_show_path(type: params[:type], location: location_) %>">
+              <div class="panel-body">
+                <h2 class="action-text">
+                  <i class="fa <%= icon_ %>"></i>
+                  <small><%= text_ %></small>
+                </h2>
+              </div>
+            </a>
+          </div>
+        <% end %>
+
+      </div>
+    </section>
+  </div>
+</div>

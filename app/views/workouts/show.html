@@ -1,23 +1,37 @@
-<section id="content">
-  <section class="main padder">
-    <div class="row">
-      <div class="col-xs-12">
-        <div class="panel">
-          <div class="panel-heading">
-            <span>Video Title</span>
-            <ul class="nav nav-pills pull-right">
-              <li><a href="#"><i class="fa fa-volume-up"></i></a></li>
-            </ul>
+<div class="container">
+  <div id="content">
+    <section class="main">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="panel">
+            <div class="panel-heading">
+              <span>Video Title </span>
+              <span class="pull-right">1/5</span>
+            </div>
+            <div class="video-wrapper">
+              <iframe width="100%" src="<%= @media.link %>" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="panel-footer text-center">
+              <% if current_user.liked_media.where(user_likes_media: {media_id: @media.id} ).blank? %>
+                <%= form_for UserLikesMedia.new, url: like_media_user_path(current_user.id), method: :post, remote: true do%> 
+                  <%= hidden_field_tag :liked_media, @media.id %>
+                  <%= submit_tag "LIKE ME", class: "fa fa-heart-o like-video-btn"  %>
+                <% end %>
+              <% else %>
+                "I LOVE THIS"
+              <% end %>
+            </div>
           </div>
-          <div class="video-wrapper">
-            <iframe width="100%" src="https://www.youtube.com/embed/oQD-Gzm7nl8" frameborder="0" allowfullscreen></iframe>
-          </div>
-          <div class="panel-footer text-center">
-              <i class="fa fa-heart-o"></i>
-          </div>
+          <% _workout_ids= (params[:id]||"").split(",").push((@media.id).to_s).join(",") %>
+           <%=link_to workout_show_path(type:       params[:type],
+                                        position:   params[:position],
+                                        location:   params[:location],
+                                        id: _workout_ids
+                                        ) do%>
+                                        Skip
+          <% end %>
         </div>
-        <a class="btn btn-primary pull-right">Skip</a>
       </div>
-    </div>
-  </section>
-</section>
+    </section>
+  </div>
+</div>
