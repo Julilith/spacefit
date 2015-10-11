@@ -1,26 +1,12 @@
 @testing_from_console=true
 
-def reload_tester
-	Object.send(:remove_const , :ConsoleTester)
-	@console_tester=nil
-	load "console_tester.rb"
-end
-
-
-def test_with_objects(log_=:log)
-	@console_tester||=ConsoleTester.new()
-	@console_tester.reload_objects=true
-	test_run(log_)
-
-end
-
-def test_run(*extra_action_)
+def run_tests(*extra_action_)
 	load "test_data.rb"
 	return "Abort testing: Your Rails environment is running in production mode!" if Rails.env.production?
 
 	@testing_from_console=true
 	@console_tester||=ConsoleTester.new()
-	extra_action_.each { |i_| @console_tester.send(i_) }
+	extra_action_.each { |i_| @console_tester.send(*i_) }
 	@console_tester.load_and_run_tests(@tests_list)
 	@console_tester.finish_string
 	@console_tester.reload_objects=false
@@ -29,8 +15,10 @@ end
 class ConsoleTester
 
 	attr_accessor :reload_objects
+	require "test_helper"
 
 	def initialize(log_sql_=:log_sql)
+
 		@testing_from_console=true
 		@logger||=ActiveRecord::Base.logger
 		@old_objects||=Object.constants
@@ -38,7 +26,7 @@ class ConsoleTester
 		@new_constants=[]
 	end
 
-	def rob
+	def reload
 		@reload_objects=true
 	end
 
@@ -109,7 +97,7 @@ private
 
 
 	def load_file(type_, name_, path_=[])
-			_loaded = load File.join(*[*path_, name_+".rb"].no_blank)
+			_loaded = load File.join(*[*path_, name_+".rb"].reject {|s_| s_.nil?})
 			lput "====>#{type_.to_s}: " + name_ + ".rb was loaded" if _loaded
 	end
 

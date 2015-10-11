@@ -25,6 +25,8 @@ Rails.application.routes.draw do
   end
   match '/recover_password/:token',
                           to: 'users#recover_password', via: 'get', as:  'reset_password'
+  
+  match '/rateapp',       to: 'users#rateapp'         , via: 'post', as: "rateapp"
 
   #—————Sign's ups
   match '/signup_form'   ,to: 'sign_ups#request_new',   via: 'get', as: "signup_form"

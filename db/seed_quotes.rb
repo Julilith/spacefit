@@ -1,11 +1,3 @@
-#load "./app/models/institutional_change.rb"
-#load "./app/models/major.rb"
-#load "./lib/rails_ext/active_record_preload.rb"
-#load "./lib/rails_ext/preload.rb"
-#load "overwrite.rb"
-#reload!
-
-def exec_my(to_load=true)
 
 _quotes_en = [
 ["Life is about making an impact, not making an income.","Kevin Kruse"],
@@ -112,11 +104,8 @@ _quotes_en = [
 
 
 _quotes_en.each do |q_, a_|
-	Quote.create(text: q_, author: a_, language: "en")
+	Quote.new(text: q_, author: a_, language: "en")
 end
 
 
 
-
-
-end

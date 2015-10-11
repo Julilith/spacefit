@@ -1,6 +1,3 @@
-
-require 'test_helper'
-
 class UserEmailTest < ActiveSupport::TestCase
 
 

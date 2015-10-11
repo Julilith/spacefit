@@ -86,6 +86,7 @@ class User < Basemodel
 	def stay_connected
 	end
 
+
 	def populate_temp_user(token_=nil)
 		_token=token_||Token.new
 		self.password=_token.value.to_s

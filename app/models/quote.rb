@@ -12,7 +12,7 @@ class Quote <Basemodel
 	#———————————————————————————————————Validations—————————————————————————————————#
 	validates :text,     presence: true
 	validates :author,   presence: true
-	validates :lang,  inclusion: { in: LANG }
+	validates :language,  inclusion: { in: LANG }
 
 	#———————————————————————————————————Callbacks———————————————————————————————————#
 

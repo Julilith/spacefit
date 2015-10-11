@@ -1,11 +1,9 @@
-require 'test_helper'
-
 class MediaTest < ActiveSupport::TestCase
 
 	def setup
 		@media=Media.new
-		@media.type=Media::TYPES[rand(Media::TYPES.length)]
-		@media.location=Media::LOCATIONS[rand(Media::LOCATIONS.length)]
+		@media.type=Media::TYPE[rand(Media::TYPE.length)]
+		@media.location=Media::LOCATION[rand(Media::LOCATION.length)]
 		@media.position=Media::POSITION[rand(Media::POSITION.length)]
 		@media.link="somelink"
 		@media.save!
@@ -14,8 +12,8 @@ class MediaTest < ActiveSupport::TestCase
 
 	test "test_validations" do
 		_media=Media.new
-		_media.type=Media::TYPES[rand(Media::TYPES.length)]
-		_media.location=Media::LOCATIONS[rand(Media::LOCATIONS.length)]
+		_media.type=Media::TYPE[rand(Media::TYPE.length)]
+		_media.location=Media::LOCATION[rand(Media::LOCATION.length)]
 		_media.position=Media::POSITION[rand(Media::POSITION.length)]
 		_media.link="somelink"
 		_media.save!

@@ -10,9 +10,8 @@ class UserQuote < Basemodel
 	belongs_to :quote, inverse_of: :given_to
 
 	#———————————————————————————————————Validations—————————————————————————————————#
-	validates :text,     presence: true
-	validates :author,   presence: true
-
+	validates :quote_id, presence: true
+	validates :user_id, presence: true
 	#———————————————————————————————————Callbacks———————————————————————————————————#
 
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151009134527) do
+ActiveRecord::Schema.define(version: 20151011165539) do
 
   create_table "feedbacks", force: :cascade do |t|
     t.integer "user_id"
@@ -34,13 +34,6 @@ ActiveRecord::Schema.define(version: 20151009134527) do
     t.string "author"
     t.string "language"
   end
-
-  create_table "user_appranks", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "rank"
-  end
-
-  add_index "user_appranks", ["user_id"], name: "index_user_appranks_on_user_id", unique: true
 
   create_table "user_emails", force: :cascade do |t|
     t.integer  "user_id"
@@ -90,6 +83,7 @@ ActiveRecord::Schema.define(version: 20151009134527) do
     t.string   "password_digest", limit: 255
     t.datetime "created_at"
     t.boolean  "disclaimer"
+    t.integer  "rateapp"
   end
 
 end

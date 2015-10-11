@@ -1,45 +1,46 @@
-  <div class="container">
-    <div id="content">
-      <section class="main">
-        <div class="row">
-          <div class="col-xs-12">
-            <div class="panel">
-              <div class="panel-heading">
-                <span>Congratulation!</span>
-                <a href="<%= workout_show_path(id: params[:id]) %>" class="pull-right"><i class="fa fa-repeat"></i></a>
-              </div>
-              <div class="panel-body">
-                <blockquote>
-                  <p>Above all, try something</p>
-                  <footer>Franklin D. Roosevelt</footer>
-                </blockquote>
-              </div>
+<div class="container">
+  <div id="content">
+    <section class="main">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="panel">
+            <div class="panel-heading">
+              <span>Congratulation!</span>
+              <a href="video.html" class="pull-right"><i class="fa fa-repeat"></i></a>
             </div>
+            <div class="panel-body">
+              <blockquote>
+                <p><%= @quote.text %></p>
+                <footer><%= @quote.author %></footer>
+              </blockquote>
+            </div>
+          </div>
+          <% if current_user.rateapp.nil? %>
             <ul class="list-group">
               <li class="list-group-item">
                 Rate the app
-                <i class="rating-star fa fa-star-o pull-right" data-toggle="modal" data-target="#myModal"></i>
-                <i class="rating-star fa fa-star-o pull-right" data-toggle="modal" data-target="#myModal"></i>
-                <i class="rating-star fa fa-star-o pull-right" data-toggle="modal" data-target="#myModal"></i>
-                <i class="rating-star fa fa-star-o pull-right" data-toggle="modal" data-target="#myModal"></i>
-                <i class="rating-star fa fa-star-o pull-right" data-toggle="modal" data-target="#myModal"></i>
+                <% [1,2,3,4,5].each do |i_| %>
+                  <%= form_for User.new, url: rateapp_path, remote: true do |f_| %>
+                    <%= f_.hidden_field :rateapp, value: i_ %>
+                    <%= f_.submit "", class: "rating-star fa fa-star-o pull-right" %>
+                  <% end %>
+                <% end %>
               </li>
             </ul>
-            <p>One more?</p>
-          </div>
-          <% [["RL",  :workout_location_path,"relax"   ],
-              ["F!T", :workout_position_path, "fit"    ],
-              ["ST",  :workout_position_path, "stretch"] ].each do |text_, option_, type_|%>
-            <div class="col-xs-12 col-md-4">
-              <%= link_to  self.send( option_, {type: type_} ) do %>
-                <div class="col-xs-4">
-                  <i class="btn btn-primary full-width"><%= text_ %></i>
-                </div>
-              <% end %> 
-            </div>
           <% end %>
-
+          <p>One more?</p>
         </div>
-      </section>
-    </div>
+        <div class="col-xs-4">
+          <a href="relax.html" class="btn btn-primary full-width">RL</a>
+        </div>
+        <div class="col-xs-4">
+          <a href="fit.html" class="btn btn-primary full-width">F!T</a>
+        </div>
+        <div class="col-xs-4">
+          <a href="fit.html" class="btn btn-primary full-width">ST</a>
+        </div>
+      </div>
+    </section>
   </div>
+</div>
+

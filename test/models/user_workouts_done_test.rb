@@ -1,5 +1,3 @@
-require 'test_helper'
-
 class UserWorkoutsDoneTest < ActiveSupport::TestCase
 
 	def setup
@@ -14,8 +12,8 @@ class UserWorkoutsDoneTest < ActiveSupport::TestCase
 
 
 		@media=Media.new
-		@media.type=Media::TYPES[rand(Media::TYPES.length)]
-		@media.location=Media::LOCATIONS[rand(Media::LOCATIONS.length)]
+		@media.type=Media::TYPE[rand(Media::TYPE.length)]
+		@media.location=Media::LOCATION[rand(Media::LOCATION.length)]
 		@media.position=Media::POSITION[rand(Media::POSITION.length)]
 		@media.link="somelink"
 		@media.save!

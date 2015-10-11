@@ -8,6 +8,10 @@ class UsersController < BaseController
 	#rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotUnique
 		redirect_to(:back)
 	end
+
+	def rateapp
+		current_user.update_attributes(rateapp: params[:user][:rateapp].to_i)
+	end
 #---------------------------------- show
 	def show
 		
