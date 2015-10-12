@@ -6,7 +6,7 @@
           <div class="panel">
             <div class="panel-heading">
               <span>Congratulation!</span>
-              <a href="video.html" class="pull-right"><i class="fa fa-repeat"></i></a>
+              <a href="<%= workout_reload_path(reload_id: params[:id]) %>" class="pull-right"><i class="fa fa-repeat"></i></a>
             </div>
             <div class="panel-body">
               <blockquote>
@@ -30,16 +30,15 @@
           <% end %>
           <p>One more?</p>
         </div>
-        <div class="col-xs-4">
-          <a href="relax.html" class="btn btn-primary full-width">RL</a>
-        </div>
-        <div class="col-xs-4">
-          <a href="fit.html" class="btn btn-primary full-width">F!T</a>
-        </div>
-        <div class="col-xs-4">
-          <a href="fit.html" class="btn btn-primary full-width">ST</a>
-        </div>
-      </div>
+        <% [["RLX", :workout_location_path, "relax"  ],
+            ["F!T", :workout_position_path, "fit"    ],
+            ["STC", :workout_position_path, "stretch"] ].each do |text_, option_, type_|%>
+          <div class="col-xs-4">
+            <%= link_to  self.send( option_, {type: type_} ), class: "btn btn-primary full-width" do %>
+              <%= text_ %>
+            <% end %> 
+          </div>
+        <% end %>
     </section>
   </div>
 </div>

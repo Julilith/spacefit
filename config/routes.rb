@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root 'static_pages#home'
-  #match "/", to: "static_pages#home", via: "get"
-
+  match "/home",  to: "static_pages#home" , via: "get"
+  match "/about", to: "static_pages#about", via: "get"
   #—————feedback
   resources :feedbacks, only: [:new, :create]
 
@@ -15,9 +15,11 @@ Rails.application.routes.draw do
   match "/workout_completed",to: "workouts#completed", via: "get", as: "workout_completed"
 
   #—————user routes
-  resources :users, except: [:index] do
+  match "/users/chart",  to: "users#progress", via: "get",   as: "progress_user"
+  match "/users/update", to: "users#update",   via: "post" , as: "update_user" 
+  match "/users/edit",   to: "users#edit",     via: "get" ,  as: "edit_user" 
+  resources :users, except: [:index, :edit] do
     member do
-      put  :update, as: "apply_changes"
       put  :update_password
       put  :update_email
       put  :like_media, as: "like_media"

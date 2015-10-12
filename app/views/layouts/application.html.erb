@@ -16,9 +16,13 @@
 
 </head>
 <body>
+  <script type="text/javascript">
+    mule={}
+  </script>
+
   <%= render'layouts/header'%>
-  <% flash.each do |f_| %>
-    <div> <%= f_ %> </div>
+  <% flash.each do |message_type, message| %>
+    <div class="alert alert-<%= message_type %>"><%= message %></div>
   <% end %>
   <%= yield %>
   <%= render partial: 'layouts/footer' %>

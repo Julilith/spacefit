@@ -1,15 +1,36 @@
 <header id="header" class="navbar">
-  <a class="navbar-brand pull-left" href="/">SPACEF!T</a>
+  <a class="navbar-brand pull-left" href="<%= progress_user_path() %>" style="color: red">SPACEF!T</a>
+
   <ul class="nav navbar-nav pull-right">
-    <li>
     <% if current_user.signed_in? %>
-      <div class="m-t m-b-small">
-        <a href="/users/<%= current_user.id %>/edit"><i class="fa fa-cog fa-fw fa-lg text-default"></i></a>
-      </div>
+      <li class="pull-left">
+        <div class="m-t m-b">
+          <a href="<%= progress_user_path %>"><i class="fa fa-line-chart fa-fw fa-lg text-default"></i></a>
+        </div>
+      </li>
+      <li class="pull-left">
+        <div class="m-t m-b">
+          <a href="<%= edit_user_path %>"><i class="fa fa-cog fa-fw fa-lg text-default"></i></a>
+        </div>
+      </li>
     <% else %>
-      <a class="btn pull-right" href="/signup">Sign Up</a>
-      <a class="btn pull-right" href="/signin">Sign In</a>
+      <li class="pull-left">
+        <div class="m-t m-b">
+          <a class="pull-right text-default" href="/signup">Sign Up</a>
+        </div>
+      </li>
+      <li class="pull-left">
+        <div class="m-t m-b">
+        |
+        </div>
+      </li>
+      <li>
+        <div class="m-t m-b">
+          <a class="pull-right text-default" href="/signin">Sign In</a>
+        </div>
+      </li>
     <% end %>
-    </li>
   </ul>
 </header>
+
+

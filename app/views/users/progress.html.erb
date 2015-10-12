@@ -1,0 +1,42 @@
+<%
+  _dates            = current_user.workouts_done.pluck(:created_at).map {|d_| d_.sec}
+  _workout_data_pre = []
+  _dates            = _dates.group_by {|d_| d_}
+  _workout_data     = _dates.map { | time_, date_| [time_, rand(15)]}.sort_by {|x_| x_[0]}
+ %>
+<script type="text/javascript">
+  mule["workoutData"]=<%= _workout_data %>
+</script>
+
+
+
+<div class="container">
+  <div id="content">
+    <section class="main">
+      <div class="row">
+        <div class="col-xs-12">
+          <p class="text-center"><strong>Your Workouts</strong></p>
+          <div class="panel">
+            <div class="panel-body">
+              <div id="flot-color" style="height:150px"  %></div>
+            </div>
+            <div class="panel-footer text-center">
+              <%= pluralize _workout_data.map {|e| e[1]}.inject(&:+), "exercice" %> in 
+              <%= pluralize _workout_data.last[0]-_workout_data.first[0], "day" %>
+            </div>
+          </div>
+          <p>One more?</p>
+        </div>
+
+        <% [["RLX",     :workout_location_path,"relax"   ],
+            ["F!T",     :workout_position_path, "fit"    ],
+            ["STRETCH", :workout_position_path, "stretch"] ].each do |text_, option_, type_|%>
+          <div class="col-xs-4">
+            <%= link_to text_, self.send( option_, {type: type_} ), class: "btn btn-primary full-width"%>
+          </div>
+        <% end %>
+
+      </div>
+    </section>
+  </div>
+</div>

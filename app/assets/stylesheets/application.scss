@@ -9,7 +9,10 @@
 @import "font-awesome";
 
 // Your CSS
+
 @import "layout/index";
-@import "components/index";
-@import "pages/index";
-@import "vendor/index";
+
+@import "font";
+@import "style";
+@import "plugin";
+@import "spacefit";

@@ -1,3 +1,5 @@
+<% _workout_ids= (params[:id]||"").split(",").push((@media.id).to_s).join(",") %>
+
 <div class="container">
   <div id="content">
     <section class="main">
@@ -5,7 +7,7 @@
         <div class="col-xs-12">
           <div class="panel">
             <div class="panel-heading">
-              <span>Video id: <%= @media.id %>  </span>
+              <span>Video Title</span>
               <span class="pull-right">1/5</span>
             </div>
             <div class="video-wrapper">
@@ -15,38 +17,40 @@
               <% if !current_user.signed_in? %>
                 <%= pluralize(UserLikesMedia.where(media_id: @media_id).count, "person").upcase %> LIKED IT!
               <% elsif current_user.liked_media.where(user_likes_media: {media_id: @media.id} ).blank? %>
-                <%= form_for UserLikesMedia.new, url: like_media_user_path(current_user.id), method: :put, remote: true do%> 
+                <%= form_for UserLikesMedia.new, url: like_media_user_path(current_user.id),
+                                                 remote: true,
+                                                 html: {class: "text-center"} do%> 
                   <%= hidden_field_tag :liked_media, @media.id %>
-                  <%= submit_tag "LIKE ME", class: "fa fa-heart-o like-video-btn"  %>
+                  <i class="fa like-video-btn fa-heart-o" data-action="submitOnClick"></i>
                 <% end %>
               <% else %>
-                "I LOVE THIS"
-              <% end %>
-            </div>
-            <div class="panel-footer text-center">
-              <%=link_to workout_completed_path(id: @media.id ) do%>
-                                        FINISH
+                  <i class="fa fa-heart-o like-video-btn"></i>
               <% end %>
             </div>
           </div>
-          <% _workout_ids= (params[:id]||"").split(",").push((@media.id).to_s).join(",") %>
-           <%=link_to workout_show_path(type:       params[:type],
-                                        position:   params[:position],
-                                        location:   params[:location],
-                                        id: _workout_ids
-                                        ) do%>
-                                        Skip
-          <% end %>
-          |
-           <%=link_to workout_reload_path(type:       params[:type],
-                                        position:   params[:position],
-                                        location:   params[:location],
-                                        id:         (params[:id]||""),
-                                        reload_id:    @media.id
-                                        ) do%>
-                                        Reload
-          <% end %>
 
+          <div class="row">
+            <div class="col-xs-4">
+              <%=link_to "FINISH", workout_completed_path(id: @media.id ), class: "btn btn-primary full-width" %>
+            </div>
+
+            <div class="col-xs-4">
+             <%=link_to "Skip", workout_show_path(type:       @media[:type],
+                                          position:   @media[:position],
+                                          location:   @media[:location],
+                                          id: _workout_ids
+                                          ), class: "btn btn-primary full-width" %>
+            </div>
+
+            <div class="col-xs-4">
+             <%=link_to "Reload", workout_reload_path(type:     @media[:type],
+                                          position:   @media[:position],
+                                          location:   @media[:location],
+                                          id:         (params[:id]||""),
+                                          reload_id:    @media.id
+                                          ), class: "btn btn-primary full-width" %>
+            </div>
+          </div>
 
         </div>
       </div>

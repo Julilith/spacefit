@@ -1,3 +1,12 @@
+class ReminderTime< ActiveModel::Validator
+	def validate(record)
+		record.errors[:schedule]="ends out of day"                     if record.to > 24
+		record.errors[:schedule]="begins before the day"               if record.to < 0
+		record.errors[:schedule]="ending time less than starting time" if record.from >= record.to
+		record.errors[:schedule]="every too long"                      if record.to-record.from < record.every
+	end
+end
+
 class User < Basemodel
 
 	#———————————————————————————————————Class data——————————————————————————————————#
@@ -67,10 +76,16 @@ class User < Basemodel
 		}
 
 	#———————————————————————————————————Validations—————————————————————————————————#
-	validates :password, length: {minimum: 4, maximum: 25}, allow_nil: true
-	validates :emails  , presence:   true
-	validates :provider, inclusion: { in: PROVIDER_TYPES }
+	validates :password,   length: {minimum: 4, maximum: 25}, allow_nil: true
+	validates :emails  ,   presence:   true
+	validates :provider,   inclusion: { in: PROVIDER_TYPES }
 	validates :disclaimer, inclusion: { in: [true] }
+	validates :reminder,   inclusion: { in: [true, false] }
+	validates :every,      numericality: { only_integer: true }
+	validates :from,       numericality: { only_integer: true }
+	validates :to,         numericality: { only_integer: true }
+
+	validates_with ReminderTime
 
 	#———————————————————————————————————Callbacks———————————————————————————————————#
 
@@ -208,3 +223,5 @@ class User < Basemodel
 	end
 
 end
+
+

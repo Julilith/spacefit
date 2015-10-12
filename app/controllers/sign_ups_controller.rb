@@ -28,7 +28,7 @@ class SignUpsController < ApplicationController
 		flash[:success]="Thanks for joining SPACEF!T, #{@user.name ||
 																												@user.email.split("@").first }. "
 		sign_in!(@user, true)
-		redirect_to root_path
+		redirect_to
 	rescue ActiveRecord::RecordInvalid,
 					ActiveRecord::RecordNotUnique => e
 		flash.now[:error]="We were not able to sign you up, please correct the following fields"

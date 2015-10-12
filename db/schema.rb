@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151011165539) do
+ActiveRecord::Schema.define(version: 20151012081056) do
 
   create_table "feedbacks", force: :cascade do |t|
     t.integer "user_id"
@@ -84,6 +84,11 @@ ActiveRecord::Schema.define(version: 20151011165539) do
     t.datetime "created_at"
     t.boolean  "disclaimer"
     t.integer  "rateapp"
+    t.string   "language"
+    t.boolean  "reminder",                    default: true
+    t.integer  "every",                       default: 1
+    t.integer  "from",                        default: 8
+    t.integer  "to",                          default: 22
   end
 
 end

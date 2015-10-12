@@ -5,7 +5,6 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.4'
 
 # DB, CSS & JS
-gem 'pg'                       # Use postgresql as the database for Active Record
 gem 'sass-rails', '~> 5.0'     # Use SCSS for stylesheets
 gem 'uglifier', '>= 1.3.0'     # Use Uglifier as compressor for JavaScript assets
 gem 'turbolinks'               # Turbolinks makes following links in your web application faster.
@@ -29,6 +28,8 @@ gem 'bcrypt', '~> 3.1.7'
 # fix time zone error when opening server
 gem 'tzinfo-data', platforms: [:x64_mingw,:mingw, :mswin]
 
+# to group objects by date
+gem 'groupdate'
 
 # authentications with facebook/
 gem 'omniauth'
@@ -44,7 +45,7 @@ group :production do
 end
 
 group :development do
-	gem 'sqlite3'
+	#gem 'sqlite3'
 	gem "better_errors"
 	gem "binding_of_caller"
 	gem "quiet_assets"

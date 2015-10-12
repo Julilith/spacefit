@@ -1,96 +1,79 @@
-<section id="content">
-  <section class="main padder">
-    <div class="row">
-      <div class="col-xs-12">
-        <ul class="list-group">
-          <li class="list-group-item list-group-item-link">
-            <a href="#" class="list-group-link">
-              About
-              <i class="fa fa-caret-right pull-right"></i>
-            </a>
-          </li>
-          <li class="list-group-item">
-            Reminder
-            <div class="btn-group pull-right m-t-n-mini m-r-n-mini" data-toggle="buttons">
-              <label class="btn btn-sm btn-white btn-on active">
-                <input type="radio" name="options" id="option1">
-                ON
-              </label>
-              <label class="btn btn-sm btn-white">
-                <input type="radio" name="options" id="option2">
-                OFF
-              </label>
-            </div>
-          </li>
-          <li class="list-group-item list-group-subitem">
-            Remind me every
-            <select class="form-control list-group-select">
-              <option>hour</option>
-              <option>2 hours</option>
-              <option>3 hours</option>
-            </select>
-          </li>
-          <li class="list-group-item list-group-subitem">
-            From
-            <select class="form-control list-group-select">
-              <option selected>AM</option>
-              <option>PM</option>
-            </select>
-            <select class="form-control list-group-select">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-              <option>6</option>
-              <option>7</option>
-              <option selected>8</option>
-              <option>9</option>
-              <option>10</option>
-              <option>11</option>
-              <option>12</option>
-            </select>
-          </li>
-          <li class="list-group-item list-group-subitem">
-            To
-            <select class="form-control list-group-select">
-              <option>AM</option>
-              <option selected>PM</option>
-            </select>
-            <select class="form-control list-group-select">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-              <option>6</option>
-              <option>7</option>
-              <option>8</option>
-              <option>9</option>
-              <option selected>10</option>
-              <option>11</option>
-              <option>12</option>
-            </select>
-          </li>
-          <li class="list-group-item">
-            Languages
-            <select class="form-control list-group-select">
-              <option>English</option>
-              <option>Français</option>
-            </select>
-          </li>
-          <li class="list-group-item list-group-item-link">
-            <a href="<%= new_feedback_path() %>" class="list-group-link">
-              Give Feedback
+<% _rc=["active",""]  %>
 
-              <i class="fa fa-caret-right pull-right"></i>
-            </a>
-          </li>
-          <li class="list-group-item list-group-item-link">
-            <a class="list-group-link"  href="/signout" data-method="delete">Log Out</a>
-          </li>
-        </ul>
+<div class="container">
+  <div id="content">
+    <section class="main">
+      <div class="row">
+        <div class="col-xs-12">
+          <ul class="list-group">
+            <li class="list-group-item list-group-item-link">
+              <a href="/about.html" class="list-group-link">
+                About
+                <i class="fa fa-caret-right pull-right"></i>
+              </a>
+            </li>
+            <li class="list-group-item">
+              Reminder
+              <%= form_for User.new, url: update_user_path(), remote: true,
+              html: { class: "btn-group pull-right m-t-n-mini m-r-n-mini",
+                      style: "margin-bottom: 0"},
+               data: { toggle: "buttons"} do |f_| %>
+                <label class="btn btn-sm btn-white btn-on <%= current_user.reminder ? "active" : "" %>">
+                  <%= f_.radio_button :reminder, true, checked: current_user.reminder %>
+                  ON
+                </label>
+                <label class="btn btn-sm btn-white btn-off <%= !current_user.reminder ? "active" : "" %>">
+                  <%= f_.radio_button :reminder, false, checked: !current_user.reminder %>
+                  OFF
+                </label>
+              <% end %>
+            </li>
+
+            <li class="sublist-group-item" style="display: <%= current_user.reminder ? 'list-item' : 'none'%>">
+              <ul class="list-unstyled">
+                  <%= form_for User.new, url: update_user_path(), remote: true,
+                  html: {class: "list-group-item list-group-subitem"} do |f_| %>
+                  Remind me every
+                    <%= f_.select :every, [["hour", 1], ["2 hours", 2], ["3 hours", 3]], {selected: pluralize(current_user.every, "hour")},
+                                                                            class: "form-control list-group-select" %>
+                  <% end %>
+                  <%= form_for User.new, url: update_user_path(), remote: true,
+                  html: {class: "list-group-item list-group-subitem"} do |f_| %>
+                  From
+                    <%= f_.select :from, Array(1..24), {selected: current_user.from}, class: "form-control list-group-select" %>
+                  <% end %>
+
+                  <%= form_for User.new, url: update_user_path(), remote: true,
+                  html: {class: "list-group-item list-group-subitem"} do |f_| %>
+                  To
+                    <%= f_.select :to, Array(1..24), {selected: current_user.to}, class: "form-control list-group-select" %>
+                  <% end %>
+              </ul>
+            </li>
+              <%= form_for User.new, url: update_user_path(), remote: true,
+                html: {class: "list-group-item" } do |f_| %>
+                Languages
+
+                <%= f_.select :language, ["English","Français", "Italiano", "日本語"], {selected: current_user.language}, class: "form-control list-group-select" %>
+              <% end %>
+            <li class="list-group-item list-group-item-link">
+              <a href="<%= new_feedback_path() %>" class="list-group-link">
+                Give Feedback
+                <i class="fa fa-caret-right pull-right"></i>
+              </a>
+            </li>
+          </ul>
+          <ul class="list-group">
+            <li class="list-group-item list-group-item-link">
+              <a class="list-group-link"  href="/signout" data-method="delete">
+                Log out
+                <i class="fa fa-sign-out pull-right"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </section>
-</section>
+    </section>
+  </div>
+</div>
+

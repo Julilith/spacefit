@@ -3,6 +3,7 @@ class UsersController < BaseController
 
 #---------------------------------- media
 	def like_media
+		fail
 		current_user.liked_media.new(media_id: params[:liked_media].to_i).save!
 
 	#rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotUnique
@@ -17,12 +18,16 @@ class UsersController < BaseController
 		
 	end
 
-	def apply_changes
+
+	def update
+		_params = params.require(:user).permit(:language, :reminder, :every, :from, :to)
+		current_user.update!(_params)
+		@success_reply="changes completed"
+		reply(success_reply)
 	end
 
-
-
-
+	def progress
+	end
 
 #---------------------------------- edit
 	# Edit user methods
@@ -58,17 +63,17 @@ class UsersController < BaseController
 
 #TODO add a method to validate your password if the provider is not native
 
-	def update
-		param=params.require(:user).permit(:name)
-		current_user.update!(user_params)
-		flash[:success]="Profile updated"
-		redirect_to edit_user_path(@user)
-		reply(success_reply)
-	rescue ActiveRecord::RecordInvalid,
-				 ActiveRecord::RecordNotUnique => e
-		@fail=""
-		reply(failure_reply)
-	end
+#	def update
+#		param=params.require(:user).permit(:name)
+#		current_user.update!(user_params)
+#		flash[:success]="Profile updated"
+#		redirect_to edit_user_path(@user)
+#		reply(success_reply)
+#	rescue ActiveRecord::RecordInvalid,
+#				 ActiveRecord::RecordNotUnique => e
+#		@fail=""
+#		reply(failure_reply)
+#	end
 
 #---------------------------------- Recovers
 	#Recover password

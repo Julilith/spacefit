@@ -11,15 +11,12 @@ class WorkoutsController< ApplicationController
 
 	def reload
 		@media=Media.where(id: params[:reload_id])[0]
-		params=params.merge({type: @media.type,
-												position: @media.position,
-												location: @media.location}.reject {|k_, v_| v_=="unknown"}
-												)
 		current_user.workouts_done.new(media_id: @media.id).save!
 	rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotUnique
 	ensure
 		render "show"
 	end
+
 
 	def show
 		if workout_params[:id].blank?
@@ -35,6 +32,7 @@ class WorkoutsController< ApplicationController
 	end
 
 	def completed
+		current_user.workouts_done.new(media_id: params[:id]).save!
 		_old_quotes=current_user.quotes_given.pluck(:id)
 		@quote=Quote.where.not(id: _old_quotes).limit(1)[0]
 		current_user.quotes_given.create(quote_id: @quote.id)
