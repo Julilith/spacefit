@@ -3,10 +3,8 @@ class UsersController < BaseController
 
 #---------------------------------- media
 	def like_media
-		fail
 		current_user.liked_media.new(media_id: params[:liked_media].to_i).save!
-
-	#rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotUnique
+	rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotUnique
 		redirect_to(:back)
 	end
 

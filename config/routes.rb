@@ -18,13 +18,14 @@ Rails.application.routes.draw do
   match "/users/chart",  to: "users#progress", via: "get",   as: "progress_user"
   match "/users/update", to: "users#update",   via: "post" , as: "update_user" 
   match "/users/edit",   to: "users#edit",     via: "get" ,  as: "edit_user" 
+  match "/users/like_media",   to: "users#edit",     via: "post" ,  as: "like_media_user" 
   resources :users, except: [:index, :edit] do
     member do
       put  :update_password
       put  :update_email
-      put  :like_media, as: "like_media"
     end
   end
+
   match '/recover_password/:token',
                           to: 'users#recover_password', via: 'get', as:  'reset_password'
   
