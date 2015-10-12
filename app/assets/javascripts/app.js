@@ -10,7 +10,6 @@ $(function(){
   });
 
   $('.like-video-btn').on('click', function() {
-
     $(this).toggleClass('fa-heart-o fa-heart');
     $(this).closest("form").submit();
   });
