@@ -28,9 +28,6 @@ gem 'bcrypt', '~> 3.1.7'
 # fix time zone error when opening server
 gem 'tzinfo-data', platforms: [:x64_mingw,:mingw, :mswin]
 
-# to group objects by date
-gem 'groupdate'
-
 # authentications with facebook/
 gem 'omniauth'
 gem 'omniauth-facebook'
