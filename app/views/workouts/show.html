@@ -17,14 +17,14 @@
               <% if !current_user.signed_in? %>
                 <%= pluralize(UserLikesMedia.where(media_id: @media_id).count, "person").upcase %> LIKED IT!
               <% elsif current_user.liked_media.where(user_likes_media: {media_id: @media.id} ).blank? %>
-                <%= form_for UserLikesMedia.new, url: like_media_user_path(current_user.id),
+                <%= form_for User.new, url: like_media_user_path,
                                                  remote: true,
                                                  html: {class: "text-center"} do%> 
                   <%= hidden_field_tag :liked_media, @media.id %>
                   <i class="fa like-video-btn fa-heart-o"></i>
                 <% end %>
               <% else %>
-                  <i class="fa fa-heart-o like-video-btn"></i>
+                  <i class="fa fa-heart like-video-btn"></i>
               <% end %>
             </div>
           </div>
