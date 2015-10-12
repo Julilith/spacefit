@@ -17,12 +17,11 @@
           </div>
           <% if current_user.rateapp.nil? %>
             <ul class="list-group">
-              <li class="list-group-item">
                 Rate the app
                 <% [1,2,3,4,5].each do |i_| %>
-                  <%= form_for User.new, url: rateapp_path, remote: true do |f_| %>
+                  <%= form_for User.new, url: rateapp_path do |f_| %>
                     <%= f_.hidden_field :rateapp, value: i_ %>
-                    <%= f_.submit "", class: "rating-star fa fa-star-o pull-right" %>
+                    <i class="rating-star fa fa-star-o pull-right" data-toggle="modal" data-target="#myModal" data-action="submitOnClick"></i>
                   <% end %>
                 <% end %>
               </li>
