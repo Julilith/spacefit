@@ -1,8 +1,12 @@
 <%
   _dates            = current_user.workouts_done.pluck(:created_at).map {|d_| d_.sec}
-  _workout_data_pre = []
-  _dates            = _dates.group_by {|d_| d_}
-  _workout_data     = _dates.map { | time_, date_| [time_, rand(15)]}.sort_by {|x_| x_[0]}
+  if _dates.count > 1
+    _workout_data_pre = []
+    _dates            = _dates.group_by {|d_| d_}
+    _workout_data     = _dates.map { | time_, date_| [time_, rand(15)]}.sort_by {|x_| x_[0]}
+  else
+    _workout_data = [[0,0]]
+  end
  %>
 <script type="text/javascript">
   mule["workoutData"]=<%= _workout_data %>
@@ -21,8 +25,12 @@
               <div id="flot-color" style="height:150px"  %></div>
             </div>
             <div class="panel-footer text-center">
-              <%= pluralize _workout_data.map {|e| e[1]}.inject(&:+), "exercice" %> in 
-              <%= pluralize _workout_data.last[0]-_workout_data.first[0], "day" %>
+              <% if _workout_data==[[0,0]] %>
+                0 exercises done. Choose a your type to start
+              <% else %>
+                <%= pluralize _workout_data.map {|e| e[1]}.inject(&:+), "exercise" %> in 
+                <%= pluralize _workout_data.last[0]-_workout_data.first[0], "day" %>
+              <% end %>
             </div>
           </div>
           <p>One more?</p>
