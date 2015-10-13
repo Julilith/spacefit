@@ -1,6 +1,6 @@
 
 (function($){
-  $(document).ready(function() {
+
     var _plot_options={
       series: {
         lines: {
@@ -47,8 +47,10 @@
         }
       }
     }
+
+  $(document).ready(function() {
+
     if ($("#flot-color").get(0)){
-      console.log($("#flot-color"))
       var plot = $.plot($("#flot-color"), [{ data: mule.workoutData }], _plot_options  );
     }
   })

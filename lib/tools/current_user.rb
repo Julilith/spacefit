@@ -35,7 +35,7 @@ module CurrentUser
 		end
 
 		def signed_in?
-			current.id!=nil && current.provider!="temp"
+			current.id!=nil && current.provider=="native"
 		end
 
 		def temp?

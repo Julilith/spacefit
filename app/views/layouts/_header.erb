@@ -1,7 +1,8 @@
 <header id="header" class="navbar">
-  <a class="navbar-brand pull-left" href="<%= progress_user_path() %>" style="color: red">SPACEF!T</a>
 
-  <ul class="nav navbar-nav pull-right" style="min-width=200px">
+  <a class="navbar-brand pull-left" href="<%= progress_user_path() %>">SPACEF!T</a>
+
+  <ul class="nav navbar-nav navbar-right">
     <% if current_user.signed_in? %>
       <li class="pull-left">
         <div class="m-t m-b">
@@ -17,11 +18,10 @@
       <li >
           <a class="text-default" href="<%= signup_path %>">Sign Up</a>
       </li>
-      <li >
-        <li role="separator" class="divider"></li>
-      </li>
       <li>
         <a class="text-default" href="<%= signin_path %>">Sign In</a>
+      </li>
+      <li>
       </li>
     <% end %>
   </ul>

@@ -17,22 +17,27 @@
 </head>
 
 <body>
+  <script type="text/javascript">
+    mule={}
+  </script>
 
   <%= render'layouts/header'%>
-  <% if current_user.temp? %>
-    <script type="text/javascript">
-      mule={}
-    </script>
+
+  <% if current_user.temp? && !["/", "/signup", "/signin"].include?(request.env['PATH_INFO'])  %>
+    <div class="container nopadding">
+        <div class="alert alert-info fade in text-center">
+          Thaks for using our SPACEF!T Sign up for more exercises
+        </div>
+    </div>
   <% end %>
 
-  <div class="alert alert-info fade in text-center">
-    "thaks for using our app signi up for more exercises"
+
+  <div class="container nopadding">
+  <% flash.each do |message_type, message| %>
+    <div class="alert alert-<%= message_type %> fade in text-center" ><%= message %></div>
+  <% end %>
   </div>
 
-
-  <% flash.each do |message_type, message| %>
-    <div class="alert alert-<%= message_type %>"><%= message %></div>
-  <% end %>
   <%= yield %>
   <%= render partial: 'layouts/footer' %>
 

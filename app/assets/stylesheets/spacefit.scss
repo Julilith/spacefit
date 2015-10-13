@@ -160,12 +160,44 @@ blockquote {
   height: 100%;
 }
 
+.nopadding {
+   padding: 0 !important;
+}
 
+.full-width{
+
+}
 form {
   margin-bottom: 0;
 }
 
 .alert {
-  line-height: 100%;
+  line-height: 16px;
   margin-bottom: 0;
+  font-size: 12px !important;
+  vertical-align: center;
+}
+
+.navbar-collapse.collapse {
+display: block!important;
+}
+
+.navbar-nav>li, .navbar-nav {
+float: left !important;
+}
+
+.navbar-nav.navbar-right:last-child {
+//margin-right: -15px !important;
+}
+
+.navbar-right {
+float: right!important;
+}
+
+
+
+.navbar-nav > li > a {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  line-height: 20px;
 }
