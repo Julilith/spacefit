@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   #—————user routes
   match "/users/chart",  to: "users#progress", via: "get",   as: "progress_user"
   match "/users/update", to: "users#update",   via: "post" , as: "update_user" 
+  match "/users/disclaimer", to: "users#disclaimer",   via: "post" , as: "post_disclaimer_user" 
   match "/users/edit",   to: "users#edit",     via: "get" ,  as: "edit_user" 
   match "/users/like_media",   to: "users#like_media",     via: "post" ,  as: "like_media_user" 
   resources :users, except: [:index, :edit] do

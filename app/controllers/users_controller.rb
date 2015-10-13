@@ -1,5 +1,6 @@
 class UsersController < BaseController
 
+before_action :require_disclaimer, except: [:disclaimer]
 
 #---------------------------------- media
 	def like_media
@@ -9,19 +10,24 @@ class UsersController < BaseController
 	end
 
 	def rateapp
-		current_user.update_attributes(rateapp: params[:user][:rateapp].to_i)
-
+		current_user.update(rateapp: params[:user][:rateapp].to_i)
+		current_user.save!
 		@success_reply="changes completed"
 		reply(success_reply)
 	end
 #---------------------------------- show
 	def show
-		
 	end
 
+	def disclaimer
+		_params = params.require(:user).permit(:disclaimer)
+		current_user.update!(_params)
+		@success_reply="Thanks, have fun!!!"
+		reply(success_reply)
+	end
 
 	def update
-		_params = params.require(:user).permit(:language, :reminder, :every, :from, :to)
+		_params = params.require(:user).permit(:language, :reminder, :every, :from, :to, :disclaimer)
 		current_user.update!(_params)
 		@success_reply="changes completed"
 		reply(success_reply)

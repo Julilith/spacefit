@@ -12,6 +12,14 @@ class BaseController < ApplicationController
 
 private
 
+	def require_disclaimer
+		if !current_user.signed_in?
+			if !current_user.disclaimer
+				redirect_to root_path
+			end
+		end
+	end
+
 	def success_reply(mes="Yeah, we made it!", path_="/")
 		_rep={html: [path_], js: {}}
 		_rep[:html][1]={flash: {success: mes}} if !mes.blank?

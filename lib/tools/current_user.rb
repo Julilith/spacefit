@@ -4,6 +4,8 @@ module CurrentUser
 
 	class CurrentUser
 		include Token
+		require 'ipaddr'
+
 		#remove unecessary methods
 		instance_methods.each do |m| 
 			undef_method m unless m =~ /(^__|^send$|^object_id$)/ || m=="puts"
@@ -34,8 +36,10 @@ module CurrentUser
 
 		def signed_in?
 			current.id!=nil && current.provider!="temp"
+		end
 
-			#!cookie_token.nil? ? @current_user.sessions.token==cookie_token : false
+		def temp?
+			current.id!=nil && current.provider=="temp"
 		end
 
 		def sign_out!
@@ -55,19 +59,33 @@ module CurrentUser
 
 			@user_type   =  User
 			@session_type= (@user_type.to_s+"Session").constantize
-
-			_session = @session_type.where(token: @cookies_token)[0].if_valid
-			_session.store_on(:user, block)
-
-			@current= _session.user || dummy_user
-
+			_session=@session_type.where(token: @cookies_token)[0]
+			if !_session.nil?
+				_session = @session_type.where(token: @cookies_token)[0].if_valid
+				if !_session.nil?
+					_session.store_on(:user, block) 
+					@current= _session.user
+				else
+					dummy_user
+				end
+			else
+				dummy_user
+			end
 		rescue NoMethodError
 			#TODO try differen users untill we get the right one!!!
 			#if not default to User
 		end
 
 		def dummy_user
-			User.new
+			_ip = Struct.new(:value).new(@env.request.remote_ip.to_i)
+			@dummy_user = User.whos_email_is("#{_ip.value}@spacefit.net") || begin
+				_tuser            = User.new
+				_tuser.provider   = "temp"
+				_tuser.disclaimer = false
+				_tuser.populate_temp_user(_ip)
+				_tuser.save(validate: false)
+				_tuser
+			end
 		end
 
 		def from_params_is?(params)

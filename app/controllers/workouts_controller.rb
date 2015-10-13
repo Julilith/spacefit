@@ -1,4 +1,6 @@
-class WorkoutsController< ApplicationController
+class WorkoutsController< BaseController
+
+	before_action :require_disclaimer
 
 	def type
 	end
@@ -36,8 +38,6 @@ class WorkoutsController< ApplicationController
 		_old_quotes=current_user.quotes_given.pluck(:id)
 		@quote=Quote.where.not(id: _old_quotes).limit(1)[0]
 		current_user.quotes_given.create(quote_id: @quote.id)
-
-		
 	end
 
 private

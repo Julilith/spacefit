@@ -11,7 +11,7 @@ class User < Basemodel
 
 	#———————————————————————————————————Class data——————————————————————————————————#
 	#---------------------------------- User providers
-	PROVIDER_TYPES=["facebook", "native", "temp"]
+	PROVIDER_TYPES=["facebook", "native", "temp0", "temp"]
 
 	#———————————————————————————————————Associations————————————————————————————————#
 
@@ -52,10 +52,7 @@ class User < Basemodel
 													class_name: :UserQuote,
 													inverse_of: :user
 
-	#---------------------------------- apprank
-	has_one :given_apprank, dependent:  :destroy,
-													 class_name: :UserAppRank,
-													 inverse_of: :user
+	#---------------------------------- Liked media
 
 	has_many :liked_media, dependent: :destroy,
 												 class_name: :UserLikesMedia,
@@ -98,15 +95,24 @@ class User < Basemodel
 
 	#———————————————————————————————————Methods—————————————————————————————————————#
 
+	def clean
+		self.sessions.delete_all
+		self.workouts_done.delete_all
+		self.quotes_given.delete_all
+		self.liked_media.delete_all
+		self.rateapp=nil
+		self.save!
+	end
+
 	def stay_connected
 	end
 
 
 	def populate_temp_user(token_=nil)
-		_token=token_||Token.new
+		_token= token_ || Token.new
 		self.password=_token.value.to_s
 		self.password_confirmation=self.password
-		self.email=("#{self.password.to_s}@spacefit.com")
+		self.email=("#{self.password.to_s}@spacefit.net")
 		return _token
 	end
 

@@ -47,7 +47,6 @@
         }
       }
     }
-    console.log($("#flot-color"))
     if ($("#flot-color").get(0)){
       console.log($("#flot-color"))
       var plot = $.plot($("#flot-color"), [{ data: mule.workoutData }], _plot_options  );

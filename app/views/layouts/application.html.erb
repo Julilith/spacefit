@@ -15,12 +15,21 @@
   <link href='https://fonts.googleapis.com/css?family=Quicksand:400,300,700' rel='stylesheet' type='text/css'> 
 
 </head>
+
 <body>
-  <script type="text/javascript">
-    mule={}
-  </script>
 
   <%= render'layouts/header'%>
+  <% if current_user.temp? %>
+    <script type="text/javascript">
+      mule={}
+    </script>
+  <% end %>
+
+  <div class="alert alert-info fade in text-center">
+    "thaks for using our app signi up for more exercises"
+  </div>
+
+
   <% flash.each do |message_type, message| %>
     <div class="alert alert-<%= message_type %>"><%= message %></div>
   <% end %>

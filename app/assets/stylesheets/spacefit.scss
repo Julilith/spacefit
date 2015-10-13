@@ -17,6 +17,7 @@ body {
   cursor: pointer;
 }
 
+
 .navbar-brand {
   display: block;
   padding: 0;
@@ -161,5 +162,10 @@ blockquote {
 
 
 form {
+  margin-bottom: 0;
+}
+
+.alert {
+  line-height: 100%;
   margin-bottom: 0;
 }
