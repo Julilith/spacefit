@@ -10,6 +10,9 @@ class UsersController < BaseController
 
 	def rateapp
 		current_user.update_attributes(rateapp: params[:user][:rateapp].to_i)
+
+		@success_reply="changes completed"
+		reply(success_reply)
 	end
 #---------------------------------- show
 	def show

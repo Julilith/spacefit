@@ -1,3 +1,14 @@
+<script type="text/javascript">
+  (function($) {
+    $(document).ready(function() {
+      $("i#rateapp").on('click', function() {
+        $(this).closest("form").submit();
+        $(this).closest("ul").remove();
+      })
+    })
+  })(jQuery)
+</script>
+
 <div class="container">
   <div id="content">
     <section class="main">
@@ -15,13 +26,17 @@
               </blockquote>
             </div>
           </div>
-          <% if current_user.rateapp.nil? %>
-            <ul class="list-group">
+          <% if current_user.rateapp.nil? || current_user.rateapp==0 %>
+            <ul class="list-group" style = "margin:none">
+                <div style="display: inline-block">
                 Rate the app
+                </div>
+              </li class="list-group-item">
                 <% [1,2,3,4,5].each do |i_| %>
-                  <%= form_for User.new, url: rateapp_path, remote: true do |f_| %>
+                  <%= form_for User.new, url: rateapp_path, remote: true,
+                      html: {class: "btn-group pull-right m-t-n-mini m-r-n-mini"} do |f_| %>
                     <%= f_.hidden_field :rateapp, value: i_ %>
-                    <i class="rating-star fa fa-star-o pull-right" data-toggle="modal" data-target="#myModal" data-action="submitOnClick"></i>
+                      <i id="rateapp" class="rating-star fa fa-star-o pull-right" data-toggle="modal" data-target="#myModal"></i>
                   <% end %>
                 <% end %>
               </li>

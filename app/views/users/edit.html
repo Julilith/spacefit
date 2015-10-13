@@ -1,4 +1,35 @@
+<script type="text/javascript">
+  (function($) {
+    $(document).ready(function() {
+      // submit reminder
+      $("[id^=reminder]").on('click', function() {
+        _obj=$(this)
+        if(!_obj.hasClass("active")){
+         _obj.children('input').prop("checked", true)
+         _obj.closest("form").submit()
+          if ($(this).hasClass('btn-on')) { //slide up and down selection
+            $(this).closest('.list-group-item').next('.sublist-group-item').slideDown();
+          } else if ($(this).hasClass('btn-off')) {
+            $(this).closest('.list-group-item').next('.sublist-group-item').slideUp();
+          }
+        }
+      })
+    })
+
+    $(document).ready(function() {
+      // submit reminder
+      $("select").on('change', function() {
+        $(this).closest("form").submit()
+      })
+    })
+
+  })(jQuery)
+</script>
+
+
 <% _rc=["active",""]  %>
+
+
 
 <div class="container">
   <div id="content">
@@ -18,23 +49,22 @@
               html: { class: "btn-group pull-right m-t-n-mini m-r-n-mini",
                       style: "margin-bottom: 0"},
                data: { toggle: "buttons"} do |f_| %>
-                <label class="btn btn-sm btn-white btn-on <%= current_user.reminder ? "active" : "" %>">
+                <label id="reminder_on" class="btn btn-sm btn-white btn-on <%= current_user.reminder ? "active" : "" %>" >
                   <%= f_.radio_button :reminder, true, checked: current_user.reminder %>
                   ON
                 </label>
-                <label class="btn btn-sm btn-white btn-off <%= !current_user.reminder ? "active" : "" %>">
+                <label id="reminder_off" class="btn btn-sm btn-white btn-off <%= !current_user.reminder ? "active" : "" %>" >
                   <%= f_.radio_button :reminder, false, checked: !current_user.reminder %>
                   OFF
                 </label>
               <% end %>
             </li>
-
             <li class="sublist-group-item" style="display: <%= current_user.reminder ? 'list-item' : 'none'%>">
               <ul class="list-unstyled">
                   <%= form_for User.new, url: update_user_path(), remote: true,
                   html: {class: "list-group-item list-group-subitem"} do |f_| %>
-                  Remind me every
-                    <%= f_.select :every, [["hour", 1], ["2 hours", 2], ["3 hours", 3]], {selected: pluralize(current_user.every, "hour")},
+                    Remind me every
+                    <%= f_.select :every, [["hour", 1], ["2 hours", 2], ["3 hours", 3]], {selected: current_user.every},
                                                                             class: "form-control list-group-select" %>
                   <% end %>
                   <%= form_for User.new, url: update_user_path(), remote: true,

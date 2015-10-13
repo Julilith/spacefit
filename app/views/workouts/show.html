@@ -1,3 +1,14 @@
+<script type="text/javascript">
+  (function($) {
+    $(document).ready(function() {
+      $("#like-video-btn").on('click', function() {
+        $(this).toggleClass('fa-heart-o fa-heart');
+        $(this).closest("form").submit();
+      })
+    })
+  })(jQuery)
+</script>
+
 <% _workout_ids= (params[:id]||"").split(",").push((@media.id).to_s).join(",") %>
 
 <div class="container">
@@ -21,7 +32,7 @@
                                                  remote: true,
                                                  html: {class: "text-center"} do%> 
                   <%= hidden_field_tag :liked_media, @media.id %>
-                  <i class="fa like-video-btn fa-heart-o"></i>
+                  <i id="like-video-btn" class="fa like-video-btn fa-heart-o"></i>
                 <% end %>
               <% else %>
                   <i class="fa fa-heart like-video-btn"></i>
