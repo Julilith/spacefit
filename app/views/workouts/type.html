@@ -1,0 +1,24 @@
+<div class="container">
+  <div id="content">
+    <section class="main">
+      <div class="row">
+        <div class="col-xs-12">
+          <p class="text-center"><strong>Choose your kind of exercice</strong></p>
+        </div>
+        <% [["RLX",     :workout_location_path,"relax"   ],
+            ["F!T",     :workout_position_path, "fit"    ],
+            ["STRETCH", :workout_position_path, "stretch"] ].each do |text_, option_, type_|%>
+          <div class="col-xs-12">
+            <%= link_to  self.send( option_, {type: type_} ), class: "panel" do %>
+              <div class="panel-body">
+                <h2 class="action-text"><%= text_ %></h2>
+              </div>
+            <% end %> 
+          </div>
+        <% end %>
+      </div>
+    </section>
+  </div>
+</div>
+
+

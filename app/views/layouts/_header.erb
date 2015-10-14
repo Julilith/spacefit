@@ -1,0 +1,30 @@
+<header id="header" class="navbar">
+
+  <a class="navbar-brand pull-left" href="<%= progress_user_path() %>">SPACEF!T</a>
+
+  <ul class="nav navbar-nav navbar-right">
+    <% if current_user.signed_in? %>
+      <li class="pull-left">
+        <div class="m-t m-b">
+          <a href="<%= progress_user_path %>"><i class="fa fa-line-chart fa-fw fa-lg text-default"></i></a>
+        </div>
+      </li>
+      <li class="pull-left">
+        <div class="m-t m-b">
+          <a href="<%= edit_user_path %>"><i class="fa fa-cog fa-fw fa-lg text-default"></i></a>
+        </div>
+      </li>
+    <% else %>
+      <li >
+          <a class="text-default" href="<%= signup_path %>">Sign Up</a>
+      </li>
+      <li>
+        <a class="text-default" href="<%= signin_path %>">Sign In</a>
+      </li>
+      <li>
+      </li>
+    <% end %>
+  </ul>
+</header>
+
+

@@ -1,0 +1,74 @@
+<script type="text/javascript">
+  (function($) {
+    $(document).ready(function() {
+      $("#like-video-btn").on('click', function() {
+        $(this).toggleClass('fa-heart-o fa-heart');
+        $(this).closest("form").submit();
+      })
+    })
+  })(jQuery)
+</script>
+
+<% _workout_ids= (params[:id]||"").split(",").push((@media.id).to_s).join(",") %>
+
+<div class="container">
+  <div id="content">
+    <section class="main">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="panel">
+            <div class="panel-heading">
+              <span>Video Title</span>
+              <span class="pull-right">1/5</span>
+            </div>
+            <div class="video-wrapper">
+
+            <iframe src="<%= @media.link %>"
+                    width="500"
+                    height="281"
+                    frameborder="0"
+                    webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+            </div>
+            <div class="panel-footer text-center">
+              <% if current_user.liked_media.where(user_likes_media: {media_id: @media.id} ).blank? %>
+                <%= form_for User.new, url: like_media_user_path,
+                                                 remote: true,
+                                                 html: {class: "text-center"} do%> 
+                  <%= hidden_field_tag :liked_media, @media.id %>
+                  <i id="like-video-btn" class="fa like-video-btn fa-heart-o"></i>
+                <% end %>
+              <% else %>
+                  <i class="fa fa-heart like-video-btn"></i>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-4">
+              <%=link_to "FINISH", workout_completed_path(id: @media.id ), class: "btn btn-primary full-width" %>
+            </div>
+
+            <div class="col-xs-4">
+             <%=link_to "Skip", workout_show_path(type:       @media[:type],
+                                          position:   @media[:position],
+                                          location:   @media[:location],
+                                          id: _workout_ids
+                                          ), class: "btn btn-primary full-width" %>
+            </div>
+
+            <div class="col-xs-4">
+             <%=link_to "Reload", workout_reload_path(type:     @media[:type],
+                                          position:   @media[:position],
+                                          location:   @media[:location],
+                                          id:         (params[:id]||""),
+                                          reload_id:    @media.id
+                                          ), class: "btn btn-primary full-width" %>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

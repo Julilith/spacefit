@@ -1,0 +1,51 @@
+<script type="text/javascript">
+  (function($) {
+    $(document).ready(function() {
+      $("input#disclaimer").on('click', function() {
+        $(this).closest("form").submit();
+      })
+    })
+  })(jQuery)
+</script>
+
+<div class="container" id="homepage">
+	<div id="content">
+		<section class="main">
+			<div class="row">
+				<div class="col-xs-12" >
+
+					<% if current_user.signed_in? %>
+						<%= render template: "users/progress" %>
+					<% else %>
+						<header class="text-center" style="color: #EE5127; font-size: 50px">
+							SPACEF!T
+						</header>
+						<section id="content">
+							<section class="main padder">
+								<div class="row">
+									<% if current_user.disclaimer==false %>
+										<%= form_for User.new, url: post_disclaimer_user_path, remote: true , html: {class: "panel-body" } do |f| %>
+											<div class="checkbox">
+												<label>
+													<%= f.check_box :disclaimer,id: "disclaimer", data: {action: "submitOnClick"} %> <a href="#">Agree the terms and policy</a>
+												</label>
+											</div>
+										<% end %>
+									<% end %>
+
+									<%= form_for User.new, url: post_disclaimer_user_path , html: {class: "panel-body" } do |f| %>
+										<%= f.select :language, User::LANGUAGES, {selected: current_user.language}, class: "form-control list-group-select pull-left" %>
+									<% end %>
+
+									<%= render partial: "workouts/type/row" %>
+								</div>
+							</section>
+						</section>
+					<% end %>
+
+
+				</div>
+			</div>
+		</section>
+	</div>
+</div>

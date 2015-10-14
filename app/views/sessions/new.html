@@ -1,0 +1,40 @@
+  <div class="container">
+    <div id="content">
+      <section class="main">
+        <div class="row">
+          <div class="col-xs-12">
+            <section class="panel">
+              <header class="panel-heading text-center">
+                Sign In
+              </header>
+          <%= form_for User.new, url: "/signin", method: "post", html: {class: "panel-body" }  do |f| %>
+            <div class="block">
+              <label class="control-label">Email</label>
+              <%= f.text_field :email, placeholder: "test@example.com", class: "form-control" %>
+            </div>
+            <div class="block">
+              <label class="control-label">Password</label>
+              <%= f.password_field :password, placeholder: "Password", class: "form-control" %>
+            </div>
+            <div class="checkbox">
+              <label>
+                <%= check_box_tag :keep, 1, false,name: "user[keep]", id: "user_keep" %>Keep me logged in
+              </label>
+            </div>
+            <button type="submit" class="btn btn-info">Sign In</button>
+            <a href="<%= new_feedback_path() %>" class="pull-right m-t-mini"><small>Forgot password?</small></a>
+          <% end %>
+            
+          <div class="panel-body">
+            <div class="line line-dashed"></div>
+            <a href="#" class="btn btn-facebook btn-block m-b-small"><i class="fa fa-facebook pull-left"></i>Sign in with Facebook</a>
+            <div class="line line-dashed"></div>
+            <p class="text-muted text-center"><small>Do not have an account?</small></p>
+            <a href="signup.html" class="btn btn-white btn-block">Create an account</a>
+          </div>
+            </section>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>

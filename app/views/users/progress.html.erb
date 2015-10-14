@@ -1,0 +1,119 @@
+<%
+  _dates            = current_user.workouts_done.pluck(:created_at).map {|d_| d_.sec}
+  if _dates.count > 1
+    _workout_data_pre = []
+    _dates            = _dates.group_by {|d_| d_}
+    _workout_data     = _dates.map { | time_, date_| [time_, rand(5)+1]}.sort_by {|x_| x_[0]}
+  else
+    _workout_data = [[0,0]]
+    _workout_data= [[2, 5], [4,1], [6,7], [7,2], [9,3], [15,3]]
+  end
+    #_workout_data= [[2, 5], [4,1], [6,7], [7,2], [9,3], [15,4]]
+
+%>
+
+
+<script type="text/javascript">
+  (function($) {
+    $(document).ready(function() {
+      $("i#rateapp").on('click', function() {
+        $(this).closest("form").submit();
+        $(this).closest("ul").remove();
+      })
+    })
+  })(jQuery)
+
+
+  $(function () {
+      $('#plot_container').highcharts({
+          chart: {
+            type: 'areaspline',
+            renderTo: 'container',
+            margin: 0 },
+          title: { text: ''},
+          xAxis: {
+            title: { enabled: false}
+          },
+          legend: {enabled: false },
+          yAxis:  {title: "" },
+          tooltip: {
+              shared: false,
+              valueSuffix: 'exercises'
+          },
+          credits: {
+              enabled: false
+          },
+          plotOptions: {
+          },
+          series: [{
+              name: '<%= current_user.name %>',
+              text: "",
+              data: <%= _workout_data %>
+          }]
+      });
+    $('#plot_container').highcharts().xAxis
+  });
+
+</script>
+
+
+<script type="text/javascript">
+  mule["workoutData"]=<%= _workout_data %>
+</script>
+
+
+<div class="container">
+  <div id="content">
+    <section class="main">
+      <div class="row">
+        <div class="col-xs-12">
+        <%= render partial: "workouts/completed/quote" if !@quote.nil?%>
+
+          <p class="text-center"><strong>Your Workouts</strong></p>
+          <div class="panel">
+            <div class="panel-body">
+            <div id="plot_container" style="height:150px"></div>
+
+            </div>
+            <div class="panel-footer text-center">
+              <% if _workout_data==[[0,0]] %>
+                0 exercises done. Choose a your type to start
+              <% else %>
+                <%= pluralize _workout_data.map {|e| e[1]}.inject(&:+), "exercise" %> in 
+                <%= pluralize _workout_data.last[0]-_workout_data.first[0], "day" %>
+              <% end %>
+            </div>
+          </div>
+
+          <% if current_user.rateapp.nil? || current_user.rateapp==0 %>
+            <ul class="list-group" style = "margin:none">
+                <div style="display: inline-block">
+                Rate the app
+                </div>
+              </li class="list-group-item">
+                <% [1,2,3,4,5].each do |i_| %>
+                  <%= form_for User.new, url: rateapp_path, remote: true,
+                      html: {class: "btn-group pull-right m-t-n-mini m-r-n-mini"} do |f_| %>
+                    <%= f_.hidden_field :rateapp, value: i_ %>
+                      <i id="rateapp" class="rating-star fa fa-star-o pull-right" data-toggle="modal" data-target="#myModal"></i>
+                  <% end %>
+                <% end %>
+              </li>
+            </ul>
+          <% end %>
+
+          <p>One more?</p>
+        </div>
+
+        <% [["RLX",     :workout_location_path,"relax"   ],
+            ["F!T",     :workout_position_path, "fit"    ],
+            ["STRETCH", :workout_position_path, "stretch"] ].each do |text_, option_, type_|%>
+          <div class="col-xs-4">
+            <%= link_to text_, self.send( option_, {type: type_} ), class: "btn btn-primary full-width"%>
+          </div>
+        <% end %>
+
+      </div>
+    </section>
+  </div>
+</div>
