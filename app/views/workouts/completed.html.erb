@@ -7,13 +7,15 @@
 
           <p>One more?</p>
         </div>
-        <% [["RLX", :workout_location_path, "relax"  ],
+        <% [["RLX", :workout_location_path, "relax", "color-icons:landscape"],
             ["F!T", :workout_position_path, "fit"    ],
-            ["STC", :workout_position_path, "stretch"] ].each do |text_, option_, type_|%>
+            ["STC", :workout_position_path, "stretch"] ].each do |text_, option_, type_, icon_|%>
           <div class="col-xs-4">
             <%= link_to  self.send( option_, {type: type_} ), class: "btn btn-primary full-width" do %>
+              <webicon icon="<%= icon_ %>" >
+              </webicon>
               <%= text_ %>
-            <% end %> 
+            <% end %>
           </div>
         <% end %>
     </section>

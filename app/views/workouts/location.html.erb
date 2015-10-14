@@ -5,15 +5,15 @@
         <div class="col-xs-12">
           <p class="text-center"><strong>I'm</strong></p>
         </div>
-
-        <% [["at Home",    "home"   , "fa-home"],
-            ["at Work",    "office", "fa-briefcase"],
-            ["Travelling", "travel", "fa-plane"]].each do |text_, location_, icon_|%>
+        <% [["at Home",    "home"   , "color-icons:home"],
+            ["at Work",    "office", "color-icons:factory"],
+            ["Travelling", "travel", "color-icons:globe"]].each do |text_, location_, icon_|%>
           <div class="col-xs-12">
             <a class="panel" href="<%= workout_show_path(type: params[:type], location: location_) %>">
               <div class="panel-body">
                 <h2 class="action-text">
-                  <i class="fa <%= icon_ %>"></i>
+                  <webicon icon="<%= icon_ %>" >
+                  </webicon>
                   <small><%= text_ %></small>
                 </h2>
               </div>

@@ -65,3 +65,5 @@ group :development do
   gem 'web-console', '~> 2.0'   # Access an IRB console on exception pages or by using <%= console %> in views
 end
 
+#internationalization
+# gem 'rails_i18n'

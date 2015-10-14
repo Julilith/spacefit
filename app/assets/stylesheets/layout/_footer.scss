@@ -1,1 +1,16 @@
-// Your footer style
+// Your footer style - button
+
+.btn-svg {
+  font-size: 31px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-shadow: 0 2px 3px rgba(0, 0, 0, 0.23);
+
+  .webicon {
+    display: flex;
+    align-items: center;
+    width: 44px;
+    margin-left: 13px;
+  }
+}
