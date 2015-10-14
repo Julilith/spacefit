@@ -54,8 +54,6 @@ GEM
     builder (3.2.2)
     byebug (5.0.0)
       columnize (= 0.9.0)
-    chart-js-rails (0.0.9)
-      railties (> 3.1)
     coderay (1.1.0)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
@@ -222,7 +220,6 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootstrap-sass
-  chart-js-rails
   coffee-rails (~> 4.1.0)
   coffee-script-source (= 1.8.0)
   figaro
