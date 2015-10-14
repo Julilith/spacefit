@@ -21,16 +21,16 @@ class WorkoutsController< BaseController
 
 
 	def show
-		if workout_params[:id].blank?
-			@media=Media.select_video(workout_params)[0]
-		elsif !workout_params[:id].blank? && workout_params[:id].count<Media::MAX
-			@media=Media.select_video(workout_params)[0]
-		else
-			params[:id]=""
-			@media=Media.select_video(workout_params)[0]
-		end
-		@media||=Media.new
-
+#		if workout_params[:id].blank?
+#			@media=Media.select_video(workout_params)[0]
+#		elsif !workout_params[:id].blank? && workout_params[:id].count<Media::MAX
+#			@media=Media.select_video(workout_params)[0]
+#		else
+#			params[:id]=""
+#			@media=Media.select_video(workout_params)[0]
+#		end
+#		@media||=Media.new.first
+		@media = Media.select_video( workout_params.slice(:type, :position, :location) )[0] || Media.first
 	end
 
 	def completed
@@ -38,6 +38,7 @@ class WorkoutsController< BaseController
 		_old_quotes=current_user.quotes_given.pluck(:id)
 		@quote=Quote.where.not(id: _old_quotes).limit(1)[0]
 		current_user.quotes_given.create(quote_id: @quote.id)
+		render template: "users/progress"
 	end
 
 private

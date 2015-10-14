@@ -25,20 +25,19 @@
   <%= render'layouts/header'%>
 
   <% if current_user.temp? && !["/", "/signup", "/signin"].include?(request.env['PATH_INFO'])  %>
-    <div class="container nopadding">
+    <div class="container nopadding" style="overflow:auto;">
         <div class="alert alert-info fade in text-center">
           Thaks for using our SPACEF!T Sign up for more exercises
         </div>
     </div>
   <% end %>
 
-
-  <div class="container nopadding">
   <% flash.each do |message_type, message| %>
-    <div class="alert alert-<%= message_type %> fade in text-center" ><%= message %></div>
+    <div class="container nopadding">
+      <div class="alert alert-<%= message_type %> fade in text-center" ><%= message %></div>
+    </div>
   <% end %>
-  </div>
-
+ 
   <%= yield %>
   <%= render partial: 'layouts/footer' %>
 

@@ -1,4 +1,5 @@
-<%_dates            = current_user.workouts_done.pluck(:created_at).map {|d_| d_.sec}
+<%
+  _dates            = current_user.workouts_done.pluck(:created_at).map {|d_| d_.sec}
   if _dates.count > 1
     _workout_data_pre = []
     _dates            = _dates.group_by {|d_| d_}
@@ -10,65 +11,64 @@
     #_workout_data= [[2, 5], [4,1], [6,7], [7,2], [9,3], [15,4]]
 
 %>
+
+
+<script type="text/javascript">
+  (function($) {
+    $(document).ready(function() {
+      $("i#rateapp").on('click', function() {
+        $(this).closest("form").submit();
+        $(this).closest("ul").remove();
+      })
+    })
+  })(jQuery)
+
+
+  $(function () {
+      $('#plot_container').highcharts({
+          chart: {
+            type: 'areaspline',
+            renderTo: 'container',
+            margin: 0 },
+          title: { text: ''},
+          xAxis: {
+            title: { enabled: false}
+          },
+          legend: {enabled: false },
+          yAxis:  {title: "" },
+          tooltip: {
+              shared: false,
+              valueSuffix: 'exercises'
+          },
+          credits: {
+              enabled: false
+          },
+          plotOptions: {
+          },
+          series: [{
+              name: '<%= current_user.name %>',
+              text: "",
+              data: <%= _workout_data %>
+          }]
+      });
+    $('#plot_container').highcharts().xAxis
+  });
+
+</script>
+
+
 <script type="text/javascript">
   mule["workoutData"]=<%= _workout_data %>
 </script>
 
-
-<script type="text/javascript">
-
-$(function () {
-    $('#plot_container').highcharts({
-        chart: {
-          type: 'areaspline',
-//          backgroundColor: '#FCFFC5',
-          renderTo: 'container',
-          margin: 0 },
-        title: { text: ''},
-        xAxis: {
-//            categories: [
-//            type: 'datetime',
-//            dateTimeLabelFormats: { // don't display the dummy year
-//                month: '%e. %b',
-//                year: '%b'
-//            }
-//            ],
-        title: {
-                enabled: false
-            }
-        },
-        legend: {
-            enabled: false
-        },
-        yAxis: {
-          title: ""
-        },
-        tooltip: {
-            shared: false,
-            valueSuffix: 'exercises'
-        },
-        credits: {
-            enabled: false
-        },
-        plotOptions: {
-        },
-        series: [{
-            name: '<%= current_user.name %>',
-            text: "",
-            data: <%= _workout_data %>
-        }]
-    });
-
-  console.log(     $('#plot_container').highcharts().xAxis )
-});
-
-</script>
 
 <div class="container">
   <div id="content">
     <section class="main">
       <div class="row">
         <div class="col-xs-12">
+        <%= render partial: "workouts/completed/quote" if !@quote.nil?%>
+
           <p class="text-center"><strong>Your Workouts</strong></p>
           <div class="panel">
             <div class="panel-body">
@@ -84,6 +84,24 @@ $(function () {
               <% end %>
             </div>
           </div>
+
+          <% if current_user.rateapp.nil? || current_user.rateapp==0 %>
+            <ul class="list-group" style = "margin:none">
+                <div style="display: inline-block">
+                Rate the app
+                </div>
+              </li class="list-group-item">
+                <% [1,2,3,4,5].each do |i_| %>
+                  <%= form_for User.new, url: rateapp_path, remote: true,
+                      html: {class: "btn-group pull-right m-t-n-mini m-r-n-mini"} do |f_| %>
+                    <%= f_.hidden_field :rateapp, value: i_ %>
+                      <i id="rateapp" class="rating-star fa fa-star-o pull-right" data-toggle="modal" data-target="#myModal"></i>
+                  <% end %>
+                <% end %>
+              </li>
+            </ul>
+          <% end %>
+
           <p>One more?</p>
         </div>
 

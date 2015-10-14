@@ -1,0 +1,12 @@
+<div class="panel">
+  <div class="panel-heading">
+    <span>Congratulation!</span>
+    <a href="<%= workout_reload_path(reload_id: params[:id]) %>" class="pull-right"><i class="fa fa-repeat"></i></a>
+  </div>
+  <div class="panel-body">
+    <blockquote>
+      <p><%= @quote.text %></p>
+      <footer><%= @quote.author %></footer>
+    </blockquote>
+  </div>
+</div>
