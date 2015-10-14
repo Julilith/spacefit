@@ -1,4 +1,4 @@
-load "./seeds/seed_medias.rb"
+#load "./seeds/seed_medias.rb"
 Media.destroy_all
 
 _vimeo_media=[
