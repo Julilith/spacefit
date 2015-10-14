@@ -12,7 +12,7 @@ class User < Basemodel
 	#———————————————————————————————————Class data——————————————————————————————————#
 	#---------------------------------- User providers
 	PROVIDER_TYPES=["facebook", "native", "temp0", "temp"]
-
+	LANGUAGES=["English","Français", "Nederlandse", "Italiano", "日本語"]
 	#———————————————————————————————————Associations————————————————————————————————#
 
 

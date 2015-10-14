@@ -34,7 +34,7 @@
 									<% end %>
 
 									<%= form_for User.new, url: post_disclaimer_user_path , html: {class: "panel-body" } do |f| %>
-										<%= f.select :language, ["English","Français", "Italiano", "日本語"], {selected: current_user.language}, class: "form-control list-group-select pull-left" %>
+										<%= f.select :language, User::LANGUAGES, {selected: current_user.language}, class: "form-control list-group-select pull-left" %>
 									<% end %>
 
 									<%= render partial: "workouts/type/row" %>

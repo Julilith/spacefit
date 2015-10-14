@@ -1,3 +1,9 @@
+#
+#
+# ATTENTION GIVEN THE LACK OF MEDIA RELOAD AND SHOW METHODS ARE BADLY UN COMMENTED
+#
+#
+
 class WorkoutsController< BaseController
 
 	before_action :require_disclaimer
@@ -12,8 +18,10 @@ class WorkoutsController< BaseController
 	end
 
 	def reload
-		@media=Media.where(id: params[:reload_id])[0]
-		current_user.workouts_done.new(media_id: @media.id).save!
+		#@media=Media.where(id: params[:reload_id])[0]
+		@media = Media.select_video( workout_params.slice(:type, :position, :location) )[0] || Media.first
+
+		#current_user.workouts_done.new(media_id: @media.id).save!
 	rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotUnique
 	ensure
 		render "show"
@@ -36,7 +44,7 @@ class WorkoutsController< BaseController
 	def completed
 		current_user.workouts_done.new(media_id: params[:id]).save!
 		_old_quotes=current_user.quotes_given.pluck(:id)
-		@quote=Quote.where.not(id: _old_quotes).limit(1)[0]
+		@quote=Quote.new_quote({language: I18n.locale ,id: _old_quotes})[0]
 		current_user.quotes_given.create(quote_id: @quote.id)
 		render template: "users/progress"
 	end

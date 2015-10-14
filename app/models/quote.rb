@@ -22,6 +22,12 @@ class Quote <Basemodel
 		order("RANDOM()").limit(1)
 	}
 
+	scope :new_quote, ->(params_) {
+		where().not(id: params_[:ids]).where(language: params_[:language] || "en").order("RANDOM()").limit(1)
+	}
+
+
+
 	#———————————————————————————————————Methods—————————————————————————————————————#
 
 end

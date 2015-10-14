@@ -84,7 +84,7 @@
                 html: {class: "list-group-item" } do |f_| %>
                 Languages
 
-                <%= f_.select :language, ["English","Français", "Italiano", "日本語"], {selected: current_user.language}, class: "form-control list-group-select" %>
+                <%= f_.select :language,  User::LANGUAGES , {selected: current_user.language}, class: "form-control list-group-select" %>
               <% end %>
             <li class="list-group-item list-group-item-link">
               <a href="<%= new_feedback_path() %>" class="list-group-link">
