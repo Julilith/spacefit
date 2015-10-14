@@ -20,7 +20,7 @@ class SignUpsController < ApplicationController
 	end
 
 	#TODO You must give a provider!!!!!!!!
-	def create  
+	def create 
 		@user=User.new
 		@user.provider="native"
 		@user.assign_attributes(signup_params)
@@ -98,7 +98,7 @@ class SignUpsController < ApplicationController
 	def signup_params
 			pa=params.require(:user).permit(:name,:email,:password,
 																			:password_confirmation, :disclaimer)
-			pa[:disclaimer]==1 ? pa[:disclaimer]=false : pa[:disclaimer]=true 
+			pa[:disclaimer].to_i==0 ? pa[:disclaimer]=false : pa[:disclaimer]=true 
 			pa[:password_confirmation]=pa[:password]
 			pa
 	end

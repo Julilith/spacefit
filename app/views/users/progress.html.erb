@@ -2,16 +2,67 @@
   if _dates.count > 1
     _workout_data_pre = []
     _dates            = _dates.group_by {|d_| d_}
-    _workout_data     = _dates.map { | time_, date_| [time_, rand(5)]}.sort_by {|x_| x_[0]}
+    _workout_data     = _dates.map { | time_, date_| [time_, rand(5)+1]}.sort_by {|x_| x_[0]}
   else
     _workout_data = [[0,0]]
+    _workout_data= [[2, 5], [4,1], [6,7], [7,2], [9,3], [15,3]]
   end
+    #_workout_data= [[2, 5], [4,1], [6,7], [7,2], [9,3], [15,4]]
+
 %>
 <script type="text/javascript">
   mule["workoutData"]=<%= _workout_data %>
 </script>
 
 
+<script type="text/javascript">
+
+$(function () {
+    $('#plot_container').highcharts({
+        chart: {
+          type: 'areaspline',
+//          backgroundColor: '#FCFFC5',
+          renderTo: 'container',
+          margin: 0 },
+        title: { text: ''},
+        xAxis: {
+//            categories: [
+//            type: 'datetime',
+//            dateTimeLabelFormats: { // don't display the dummy year
+//                month: '%e. %b',
+//                year: '%b'
+//            }
+//            ],
+        title: {
+                enabled: false
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        yAxis: {
+          title: ""
+        },
+        tooltip: {
+            shared: false,
+            valueSuffix: 'exercises'
+        },
+        credits: {
+            enabled: false
+        },
+        plotOptions: {
+        },
+        series: [{
+            name: '<%= current_user.name %>',
+            text: "",
+            data: <%= _workout_data %>
+        }]
+    });
+
+  console.log(     $('#plot_container').highcharts().xAxis )
+});
+
+</script>
 
 <div class="container">
   <div id="content">
@@ -21,7 +72,8 @@
           <p class="text-center"><strong>Your Workouts</strong></p>
           <div class="panel">
             <div class="panel-body">
-              <div id="flot-color" style="height:150px"></div>
+            <div id="plot_container" style="height:150px; background-color: red"></div>
+
             </div>
             <div class="panel-footer text-center">
               <% if _workout_data==[[0,0]] %>

@@ -35,6 +35,7 @@ gem 'omniauth-facebook'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
+
 #database & heroku
 group :production do
 	gem "pg"
