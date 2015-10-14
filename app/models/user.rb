@@ -76,7 +76,6 @@ class User < Basemodel
 	validates :password,   length: {minimum: 4, maximum: 25}, allow_nil: true
 	validates :emails  ,   presence:   true
 	validates :provider,   inclusion: { in: PROVIDER_TYPES }
-	validates :disclaimer, inclusion: { in: [true] }
 	validates :reminder,   inclusion: { in: [true, false] }
 	validates :every,      numericality: { only_integer: true }
 	validates :from,       numericality: { only_integer: true }
@@ -108,12 +107,22 @@ class User < Basemodel
 	end
 
 
+
 	def populate_temp_user(token_=nil)
 		_token= token_ || Token.new
 		self.password=_token.value.to_s
 		self.password_confirmation=self.password
 		self.email=("#{self.password.to_s}@spacefit.net")
 		return _token
+	end
+
+	def self.build_dummy_user(token_=Token.new)
+		_tuser            = User.new
+		_tuser.provider   = "temp"
+		_tuser.disclaimer = false
+		_tuser.populate_temp_user(token_)
+		_tuser.save(validate: false)
+		_tuser
 	end
 
 	#----------------------------------unique email

@@ -17,8 +17,11 @@ class UserSession< Basemodel
 		Time.now.utc-self.created_at
 	end
 
-	def if_valid
-		self.is_valid? ? self : nil
+	def if_valid?
+		self.is_valid? ? self : begin 
+			self.delete
+			return nil
+		end
 	end
 
 	def is_valid?
