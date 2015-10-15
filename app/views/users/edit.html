@@ -38,12 +38,12 @@
           <ul class="list-group">
             <li class="list-group-item list-group-item-link">
               <a href="/about.html" class="list-group-link">
-                About
+                Info
                 <i class="fa fa-caret-right pull-right"></i>
               </a>
             </li>
             <li class="list-group-item">
-              Reminder
+              Rappel
               <%= form_for User.new, url: update_user_path(), remote: true,
               html: { class: "btn-group pull-right m-t-n-mini m-r-n-mini",
                       style: "margin-bottom: 0"},
@@ -62,8 +62,8 @@
               <ul class="list-unstyled">
                   <%= form_for User.new, url: update_user_path(), remote: true,
                   html: {class: "list-group-item list-group-subitem"} do |f_| %>
-                    Remind me every
-                    <%= f_.select :every, [["hour", 1], ["2 hours", 2], ["3 hours", 3]], {selected: current_user.every},
+                    Petit rappel toutes les
+                    <%= f_.select :every, [["heure", 1], ["2 heures", 2], ["3 heures", 3]], ["4 heures", 4]], {selected: current_user.every},
                                                                             class: "form-control list-group-select" %>
                   <% end %>
                   <%= form_for User.new, url: update_user_path(), remote: true,
