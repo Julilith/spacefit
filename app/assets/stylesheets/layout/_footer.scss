@@ -10,7 +10,16 @@
   .webicon {
     display: flex;
     align-items: center;
-    width: 44px;
-    margin-left: 13px;
+    width: 70px;
+    top: -5px;
+    left: 0;
+    margin: auto;
+    right: 0;
+    position: absolute;
   }
+}
+
+.inner-text {
+  position: relative;
+  z-index: 1;
 }
