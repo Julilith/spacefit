@@ -44,7 +44,7 @@ class WorkoutsController< BaseController
 	def completed
 		current_user.workouts_done.new(media_id: params[:id]).save!
 		_old_quotes=current_user.quotes_given.pluck(:id)
-		@quote=Quote.new_quote({language: I18n.locale ,id: _old_quotes})[0]
+		@quote=Quote.new_quote({language: "fr" ,id: _old_quotes})[0]
 		current_user.quotes_given.create(quote_id: @quote.id)
 		render template: "users/progress"
 	end
