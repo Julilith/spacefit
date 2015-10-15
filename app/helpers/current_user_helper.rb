@@ -32,15 +32,11 @@ module CurrentUserHelper
 		end
 
 		def signed_in?
-			current.id!=nil && current.provider!="temp"
+			current.id!=nil && current.provider=="native"
 		end
 
 		def temp?
 			current.id!=nil && current.provider=="temp"
-		end
-
-		def disclaimed?
-			current.disclaimer==true
 		end
 
 		def sign_out!

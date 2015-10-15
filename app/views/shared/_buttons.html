@@ -1,0 +1,13 @@
+<% [["RLX",     :workout_location_path,"relax", 'color-icons:landscape'],
+    ["F!T",     :workout_position_path, "fit", "color-icons:flash-on"],
+    ["STR", :workout_position_path, "stretch", "color-icons:link"] ].each do |text_, option_, type_, icon_|%>
+  <div class="col-xs-4">
+    <%= link_to self.send( option_, {type: type_} ), class: "btn btn-svg btn-primary full-width #{type_}" do %>
+    <span>
+      <%= text_ %>
+    </span>
+    <webicon icon="<%= icon_ %>" >
+    </webicon>
+  <% end %>
+  </div>
+<% end %>

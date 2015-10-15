@@ -78,7 +78,7 @@
               <% if _workout_data==[[0,0]] %>
                 0 exercises done. Choose a your type to start
               <% else %>
-                <%= pluralize _workout_data.map {|e| e[1]}.inject(&:+), "exercise" %> in
+                <%= pluralize _workout_data.map {|e| e[1]}.inject(&:+), "exercise" %> dans
                 <%= pluralize _workout_data.last[0]-_workout_data.first[0], "jour" %>
               <% end %>
             </div>
@@ -104,17 +104,7 @@
           <h2>J'aimerai...</h2>
         </div>
 
-        <% [["RLX",     :workout_location_path,"relax", 'color-icons:landscape'],
-            ["F!T",     :workout_position_path, "fit", "color-icons:flash-on"],
-            ["STR", :workout_position_path, "stretch", "color-icons:link"] ].each do |text_, option_, type_, icon_|%>
-          <div class="col-xs-4">
-            <%= link_to self.send( option_, {type: type_} ), class: "btn btn-svg btn-primary full-width" do %>
-            <%= text_ %>
-            <webicon icon="<%= icon_ %>" >
-            </webicon>
-          <% end %>
-          </div>
-        <% end %>
+       <%= render 'shared/buttons' %>
 
       </div>
     </section>
