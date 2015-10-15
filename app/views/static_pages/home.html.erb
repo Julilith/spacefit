@@ -13,10 +13,18 @@
 		<% if current_user.signed_in? && current_user.disclaimed? %>
 			<%= render template: "users/progress" %>
 		<% else %>
-			<%= render partial: "static_pages/home/carousel" %>
-			<header class="text-center" style="position: absolute; left:0; top:0; right: 0;color: #EE5127; font-size: 50px">
+
+
+			<header class="text-center" style="color: #EE5127; font-size: 50px">
 				SPACEF!T
 			</header>
+
+		<div class="row">
+			<div class="col-xs-12">
+			<%= render partial: "static_pages/home/carousel" %>
+			</div>
+		</div>
+
 				<section id="choises" class="move_bottom">
 					<%= form_for User.new, url: post_disclaimer_user_path, remote: true , html: {class: "panel-body" } do |f| %>
 						<div class="checkbox">

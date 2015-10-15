@@ -217,21 +217,12 @@ float: right!important;
 
     height: inherit;
     .item{
-      margin: 20% 20%;
-      div{
-
+      img{
+        margin: 0% 10%;
+        width: 80%;
         height: inherit;
       }
 
-      #image3{
-        background: image_url("Stretch_Up_Welcome.jpg") no-repeat center / cover;
-      }
-      #image2{
-        background: image_url("RLX_Welcome.jpg") no-repeat center / cover;
-      }
-      #image1{
-        background: image_url("Fit_Seatted_Welcome.jpg") no-repeat center / cover;
-      }
     }
   }
 }
