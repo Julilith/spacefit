@@ -25,7 +25,7 @@
 								<%= form_for User.new, url: post_disclaimer_user_path, remote: true , html: {class: "panel-body" } do |f| %>
 									<div class="checkbox">
 										<label>
-											<%= f.check_box :disclaimer,id: "disclaimer", data: {action: "submitOnClick"} %> <a href="#">Agree the terms and policy</a>
+											<%= f.check_box :disclaimer,id: "disclaimer", data: {action: "submitOnClick"} %> <a href="#">Ac cepter les conditions</a>
 										</label>
 									</div>
 								<% end if current_user.disclaimer!=true %>

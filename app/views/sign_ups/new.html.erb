@@ -10,20 +10,20 @@
 
             <%= form_for User.new, url: "/signup", method: "post" , html: {class: "panel-body" } do |f| %>
               <div class="block">
-                <label class="control-label">Display name</label>
+                <label class="control-label">Votre nom</label>
                 <%= f.text_field :name, placeholder: "eg. Your name or company", class: "form-control" %>
               </div>
               <div class="block">
-                <label class="control-label">Your email address</label>
+                <label class="control-label">Votre adresse email</label>
                 <%= f.text_field :email, placeholder: "test@example.com", class: "form-control" %>
               </div>
               <div class="block">
-                <label class="control-label">Type a password</label>
+                <label class="control-label">votre mot de passe</label>
                 <%= f.password_field :password, placeholder: "Password", class: "form-control" %>
               </div>
               <div class="checkbox">
                 <label>
-                <%= f.check_box :disclaimer %>Agree the <a href="#">terms and policy</a>
+                <%= f.check_box :disclaimer %>Acceptez les <a href="#">conditions</a>
                 </label>
               </div>
               <button type="submit" class="btn btn-info">Sign up</button>
@@ -33,15 +33,15 @@
               <div class="line line-dashed"></div>
               <div class="row">
                 <div class="col-sm-6 text-center">
-                   <a href="#" class="btn btn-facebook btn-circle btn-sm"><i class="fa fa-facebook"></i>Sign up with Facebook</a>
+                   <a href="#" class="btn btn-facebook btn-circle btn-sm"><i class="fa fa-facebook"></i>Inscrivez vous avec Facebook</a>
                 </div>
                 <div class="col-sm-6 text-center">
-                  <a href="#" class="btn btn-twitter btn-circle btn-sm"><i class="fa fa-twitter"></i>Sign up with Twitter</a>
+                  <a href="#" class="btn btn-twitter btn-circle btn-sm"><i class="fa fa-twitter"></i>Inscrivez vous avec Twitter</a>
                 </div>
               </div>
               <div class="line line-dashed"></div>
               <p class="text-muted text-center"><small><%= t "already_account" %></small></p>
-              <a href="signin.html" class="btn btn-white btn-block">Sign in</a>
+              <a href="signin.html" class="btn btn-white btn-block">S'!dentifier</a>
             </div>
           </section>
         </div>

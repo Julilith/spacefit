@@ -2,9 +2,7 @@
     <section class="main">
       <div class="row">
         <div class="col-xs-12">
-
-
-          <p>One more?</p>
+          <p>Oui, encore!</p>
         </div>
         <% [["RLX", :workout_location_path, "relax", "color-icons:landscape"],
             ["F!T", :workout_position_path, "fit"    ],
@@ -13,7 +11,9 @@
             <%= link_to  self.send( option_, {type: type_} ), class: "btn btn-primary full-width" do %>
               <webicon icon="<%= icon_ %>" >
               </webicon>
-              <%= text_ %>
+              <span class='inner-text'>
+                <%= text_ %>
+              </span>
             <% end %>
           </div>
         <% end %>
