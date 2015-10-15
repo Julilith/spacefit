@@ -9,8 +9,9 @@ body {
 }
 
 .container {
+position: relative;
  max-width: 600px;
-  width: 100%;
+ width: 100%;
 }
 
 .full-height {
@@ -115,6 +116,7 @@ blockquote {
   background-color: transparent;
 }
 
+
 .list-group .fa {
   padding: 3px;
 }
@@ -211,45 +213,39 @@ float: right!important;
 
 #home_carousel{
   .carousel-inner{
+
+
     height: inherit;
     .item{
-      height: inherit;
-      div{
+      img{
+        margin: 0% 10%;
+        width: 80%;
         height: inherit;
       }
 
-      #image3{
-        background: image_url("Stretch_Up_Welcome.jpg") no-repeat center / cover;
-      }
-      #image2{
-        background: image_url("RLX_Welcome.jpg") no-repeat center / cover;
-      }
-      #image1{
-        background: image_url("Fit_Seatted_Welcome.jpg") no-repeat center / cover;
-      }
     }
   }
 }
 
-  .take_all_space{
-    position: absolute ;
-    left: 0 ;
-    right: 0 ;
-    bottom: 0 ;
-    top: 0 ;
-  }
+.take_all_space{
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  top: 0 !important;
+}
 
-  .move_bottom{
-    position: absolute ;
-    left: 0 ;
-    right: 0 ;
-    bottom: 0 ;
-  }
+.move_bottom{
+  position: absolute ;
+  left: 0 ;
+  right: 0 ;
+  bottom: 0 ;
+}
 
-  #homepage{
-    position:"relative";
-    #choises{
-      margin: 30px 15px;
+#homepage{
 
-    }
+  #choises{
+    margin: 30px 15px;
   }
+}
+

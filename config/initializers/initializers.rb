@@ -20,9 +20,9 @@
 Rails.application.config.middleware.use OmniAuth::Builder do
 		#Facebook
 		provider :facebook, ENV['FB_APP_ID'], ENV['FB_APP_SECRET'],
-		info_fields: ['email',"public_profile "].join(',')
+		info_fields: ['email',"public_profile "].join(','),
 		scope: ['email',
-			'user_name'
+			'user_name',
 			'user_birthday',
 			'user_relationship_details'].join(',')
 		end
