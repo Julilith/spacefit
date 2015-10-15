@@ -79,7 +79,7 @@
                 0 exercises done. Choose a your type to start
               <% else %>
                 <%= pluralize _workout_data.map {|e| e[1]}.inject(&:+), "exercise" %> in
-                <%= pluralize _workout_data.last[0]-_workout_data.first[0], "day" %>
+                <%= pluralize _workout_data.last[0]-_workout_data.first[0], "jour" %>
               <% end %>
             </div>
           </div>
@@ -87,7 +87,7 @@
           <% if current_user.rateapp.nil? || current_user.rateapp==0 %>
             <ul class="list-group" style = "margin:none">
                 <div style="display: inline-block">
-                Combien d'étoile pour l'App?
+                Combien d'étoiles pour l'App?
                 </div>
               </li class="list-group-item">
                 <% [1,2,3,4,5].each do |i_| %>
