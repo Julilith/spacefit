@@ -27,7 +27,7 @@
   <% if current_user.temp? && !["/", "/signup", "/signin"].include?(request.env['PATH_INFO'])  %>
     <div class="container nopadding" style="overflow:auto;">
         <div class="alert alert-info fade in text-center">
-          Thaks for using our SPACEF!T Sign up for more exercises
+          Merci d’utiliser SPACEF!T, enregistrez-vous maintenant et bénéficier de futurs avantages.
         </div>
     </div>
   <% end %>
@@ -37,9 +37,11 @@
       <div class="alert alert-<%= message_type %> fade in text-center" ><%= message %></div>
     </div>
   <% end %>
- 
+
   <%= yield %>
   <%= render partial: 'layouts/footer' %>
+
+  <script type="text/javascript" src="//cdn.rawgit.com/icons8/bower-webicon/v0.10.7/jquery-webicon.min.js"></script>
 
   <%# yield(:after_js) %>
 

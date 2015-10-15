@@ -70,8 +70,8 @@ ActiveRecord::Schema.define(version: 20151012081056) do
   add_index "user_sessions", ["user_id"], name: "index_user_sessions_on_user_id"
 
   create_table "user_workouts_done", force: :cascade do |t|
-    t.integer  "media_id"
-    t.integer  "user_id"
+    t.string   "media_id"
+    t.string   "user_id"
     t.datetime "created_at"
   end
 

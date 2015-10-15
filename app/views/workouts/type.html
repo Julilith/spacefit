@@ -3,7 +3,7 @@
     <section class="main">
       <div class="row">
         <div class="col-xs-12">
-          <p class="text-center"><strong>Choose your kind of exercice</strong></p>
+          <p class="text-center"><strong><%= t "type_intro" %></strong></p>
         </div>
         <% [["RLX",     :workout_location_path,"relax"   ],
             ["F!T",     :workout_position_path, "fit"    ],
@@ -13,7 +13,7 @@
               <div class="panel-body">
                 <h2 class="action-text"><%= text_ %></h2>
               </div>
-            <% end %> 
+            <% end %>
           </div>
         <% end %>
       </div>
