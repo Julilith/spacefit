@@ -25,7 +25,7 @@
   <%= render'layouts/header'%>
 
   <% if current_user.temp? && !["/", "/signup", "/signin"].include?(request.env['PATH_INFO'])  %>
-    <div class="container nopadding" style="overflow:auto;">
+    <div class="container nopadding">
         <div class="alert alert-info fade in text-center">
           Merci d’utiliser SPACEF!T, enregistrez-vous maintenant et bénéficier de futurs avantages.
         </div>

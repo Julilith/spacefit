@@ -2,8 +2,10 @@
   (function($) {
     $(document).ready(function() {
       $("#like-video-btn").on('click', function() {
-        $(this).toggleClass('fa-heart-o fa-heart');
-        $(this).closest("form").submit();
+        if($(this).hasClass("fa-heart-o")){
+          $(this).toggleClass('fa-heart-o fa-heart');
+          $(this).closest("form").submit();
+        }
       })
     })
   })(jQuery)
@@ -19,7 +21,7 @@
           <div class="panel">
             <div class="panel-heading">
               <span>Video Title</span>
-              <span class="pull-right"></span>
+              <span class="pull-right">1/5</span>
             </div>
             <div class="video-wrapper">
 
@@ -34,7 +36,7 @@
               <% if current_user.liked_media.where(user_likes_media: {media_id: @media.id} ).blank? %>
                 <%= form_for User.new, url: like_media_user_path,
                                                  remote: true,
-                                                 html: {class: "text-center"} do%>
+                                                 html: {class: "text-center"} do%> 
                   <%= hidden_field_tag :liked_media, @media.id %>
                   <i id="like-video-btn" class="fa like-video-btn fa-heart-o"></i>
                 <% end %>

@@ -5,6 +5,7 @@
         $(this).closest("form").submit();
       })
     })
+
   })(jQuery)
 </script>
 
@@ -32,9 +33,11 @@
 											</div>
 										<% end %>
 									<% end %>
-
-									<%= form_for User.new, url: post_disclaimer_user_path , html: {class: "panel-body" } do |f| %>
-										<%= f.select :language, User::LANGUAGES, {selected: current_user.language}, class: "form-control list-group-select pull-left" %>
+									<%= form_for User.new, url: update_user_path , html: {class: "panel-body" }, remote: true do |f| %>
+										<%= f.select :language, User::LANGUAGES, {selected: current_user.language},
+																						class: "form-control list-group-select pull-left",
+																						data: {action: 'submitOnClick'}
+										%>
 									<% end %>
 
 									<%= render partial: "workouts/type/row" %>
