@@ -9,46 +9,40 @@
   })(jQuery)
 </script>
 
-<div class="container" id="homepage">
-	<div id="content">
-		<section class="main">
-			<div class="row">
-				<div class="col-xs-12" >
+<div id="homepage">
+	<div id="content " class="take_all_space">
+			<div class="row take_all_space">
+				<div class="col-xs-12 take_all_space" >
 
-					<% if current_user.signed_in? %>
+					<% if current_user.signed_in? && current_user.disclaimed? %>
 						<%= render template: "users/progress" %>
 					<% else %>
+						<%= render partial: "static_pages/home/carousel" %>
 						<header class="text-center" style="color: #EE5127; font-size: 50px">
 							SPACEF!T
 						</header>
-						<section id="content">
-							<section class="main padder">
-								<div class="row">
-									<% if current_user.disclaimer==false %>
-										<%= form_for User.new, url: post_disclaimer_user_path, remote: true , html: {class: "panel-body" } do |f| %>
-											<div class="checkbox">
-												<label>
-													<%= f.check_box :disclaimer,id: "disclaimer", data: {action: "submitOnClick"} %> <a href="#">Agree the terms and policy</a>
-												</label>
-											</div>
-										<% end %>
-									<% end %>
-									<%= form_for User.new, url: update_user_path , html: {class: "panel-body" }, remote: true do |f| %>
-										<%= f.select :language, User::LANGUAGES, {selected: current_user.language},
-																						class: "form-control list-group-select pull-left",
-																						data: {action: 'submitOnClick'}
-										%>
-									<% end %>
+							<section id="choises" class="move_bottom">
+								<%= form_for User.new, url: post_disclaimer_user_path, remote: true , html: {class: "panel-body" } do |f| %>
+									<div class="checkbox">
+										<label>
+											<%= f.check_box :disclaimer,id: "disclaimer", data: {action: "submitOnClick"} %> <a href="#">Agree the terms and policy</a>
+										</label>
+									</div>
+								<% end if current_user.disclaimer!=true %>
 
-									<%= render partial: "workouts/type/row" %>
-								</div>
+								<%= form_for User.new, url: update_user_path , html: {class: "panel-body" }, remote: true do |f| %>
+									<%= f.select :language, User::LANGUAGES, {selected: current_user.language},
+																					class: "form-control list-group-select pull-left",
+																					data: {action: 'submitOnClick'}
+									%>
+								<% end %>
+
+								<%= render partial: "workouts/type/row" %>
 							</section>
-						</section>
 					<% end %>
 
 
 				</div>
 			</div>
-		</section>
 	</div>
 </div>

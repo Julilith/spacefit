@@ -15,7 +15,7 @@ module SessionsHelper
 
 	end
 
-	def sign_in_temp!(user_, token_)
+	def sign_in_temp!(user_, token_=Token.new)
 		_session        = UserSession.new(token: token_.digest, user_id: user_.id)
 		cookies[:token] = {value: token_.value}
 		_session.save!(validate: false)
@@ -26,11 +26,11 @@ module SessionsHelper
 	#to destroy a session permanently you have to use session, you cannot force
 	#a cookie to dissappear from the browser. A permanent log in should use cookies
 	#while a temporary log in should use the session cookie jar
-	def sign_in!(user_, remember_me_=false, token_=Token.new, validate)
+	def sign_in!(user_, remember_me_=false, token_=Token.new)
 		_cookie_type = remember_me_ ? 1.month.from_now : nil 
-		_token       = UserSession.new(token_.digest)
+		_token       = user_.sessions.new(token_)
 		cookies[:token] = {value: _token.value, expires: 1.month.from_now}.no_blank
-		user_.save!(validate: false)
+		user_.save!
 		current_user.set(user_)
 		return current_user
 	end
