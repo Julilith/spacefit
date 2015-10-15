@@ -4,12 +4,12 @@
 
 
 # ENV initializer
-	#define a YAML file with env info
-	env_file = File.join(Rails.root, 'config', 'application.yml')
-	#read and set the variables
-	YAML.load(File.open(env_file)).each do |key, value|
-		ENV[key.to_s] = value.to_s
-	end if File.exists?(env_file)
+	# #define a YAML file with env info
+	# env_file = File.join(Rails.root, 'config', 'application.yml')
+	# #read and set the variables
+	# YAML.load(File.open(env_file)).each do |key, value|
+	# 	ENV[key.to_s] = value.to_s
+	# end if File.exists?(env_file)
 
 #—————————————————————————————————————————————————————————————————————————————————#
 #————                      >>>>>>>>>set omniauth<<<<<<<<<                     ————#

@@ -1,21 +1,52 @@
 // Your footer style - button
 
 .btn-svg {
-  font-size: 31px;
+  font-size: 25px;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
   text-shadow: 0 2px 3px rgba(0, 0, 0, 0.23);
+
+
+  &.relax {
+    background: #31A435;
+
+    &:hover {
+      background: darken(#31A435, 10%);
+    }
+
+  }
+  &.fit {
+    background: #FFEB00;
+
+    &:hover {
+      background: darken(#FFEB00, 10%);
+    }
+  }
+  &.stretch {
+    background: #8AC8FA;
+
+    &:hover {
+      background: darken(#8AC8FA, 10%);
+    }
+  }
+
+  span {
+    position: relative;
+    z-index: 999;
+  }
 
   .webicon {
     display: flex;
     align-items: center;
-    width: 70px;
-    top: -5px;
+    width: 86px;
+    top: -12px;
     left: 0;
     margin: auto;
     right: 0;
     position: absolute;
+    z-index: 0;
   }
 }
 
