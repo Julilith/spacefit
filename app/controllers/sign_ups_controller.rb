@@ -10,6 +10,7 @@ class SignUpsController < ApplicationController
 	def new_with_redirect;
 		@user=User.new;
 		return redirect_to auth_path(:facebook) if params[:with]=="facebook"
+		return redirect_to auth_path(:linkedin) if params[:with]=="linkedin"
 		if !auth_hash.blank?
 			if @user.facebook_info(auth_hash)=='mail missing'
 				flash[:error]='Sign up failed, we need your email to sign you up'
@@ -36,15 +37,16 @@ class SignUpsController < ApplicationController
 	end
 
 	def facebook
-		_user=User.new;
-		if _user.facebook_info(auth_hash)=='mail missing'
+		user=User.new;
+		if user.facebook_info(auth_hash)=='mail missing'
 			flash[:error]='Sign up failed, we need your email to sign you up'
 			redirect_to root_path
-		elsif _euser=User.whos_email_is(_user.email)
-			if _euser.provider=='facebook'
+		elsif euser_mail=UserEmail.where(email: user.email).load_joins(:user).first
+			euser=euser_mail.user
+			if euser.provider=='facebook'
 				#fix me we need to check the data and update the use again
-				_euser.disclaimer==true ? sign_in!(_euser) : sign_in_temp!(_euser)
-			elsif _euser.provider="linkedin"
+				sign_in! euser
+			elsif euser.provider="linkedin"
 				flash[:error]="Your are already signed up with a LinkedIn account,
 													sign in with LinkedIn or change your account settings "
 			else
@@ -58,9 +60,8 @@ class SignUpsController < ApplicationController
 			end
 			redirect_to root_path
 		else
-			flash[:success]="Please read and check the disclaimer to fully access the application"
-			_user.save!
-			sign_in! _user
+			user.save
+			sign_in! user
 			redirect_to edit_user_path(current_user)
 		end
 	end
