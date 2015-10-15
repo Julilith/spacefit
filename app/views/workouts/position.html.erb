@@ -5,8 +5,8 @@
           <p class="text-center"><strong>Je suis...</strong></p>
         </div>
 
-        <% [["Sitting",     "sit", "sit-icon.png"   ],
-            ["Standing up", "up",  "up-icon.png"]].each do |text_, position_, image_|%>
+        <% [["Assis(e)",     "sit", "sit-icon.png"   ],
+            ["Debout", "up",  "up-icon.png"]].each do |text_, position_, image_|%>
           <div class="col-xs-12">
             <a class="panel" href="<%= workout_show_path(type: params[:type], position: position_) %>">
               <div class="panel-body">

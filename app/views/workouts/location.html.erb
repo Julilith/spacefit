@@ -4,9 +4,9 @@
         <div class="col-xs-12">
           <p class="text-center"><strong>I'm</strong></p>
         </div>
-        <% [["at Home",    "home"   , "color-icons:home"],
-            ["at Work",    "office", "color-icons:factory"],
-            ["Travelling", "travel", "color-icons:globe"]].each do |text_, location_, icon_|%>
+        <% [["à la maison",    "home"   , "color-icons:home"],
+            ["au bureau",    "office", "color-icons:factory"],
+            ["dans le ciel!", "travel", "color-icons:globe"]].each do |text_, location_, icon_|%>
           <div class="col-xs-12">
             <a class="panel" href="<%= workout_show_path(type: params[:type], location: location_) %>">
               <div class="panel-body">
