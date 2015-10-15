@@ -22,3 +22,5 @@ w# See https://help.github.com/articles/ignoring-files for more about ignoring f
 
 # Ignore databases
 /db/*.sqlite3
+# Ignore application configuration
+/config/application.yml

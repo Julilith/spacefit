@@ -15,6 +15,7 @@
   <link href='https://fonts.googleapis.com/css?family=Quicksand:400,300,700' rel='stylesheet' type='text/css'>
 
   <script src="https://code.highcharts.com/highcharts.js"></script>
+
 </head>
 
 <body>
@@ -25,20 +26,27 @@
   <%= render'layouts/header'%>
 
   <% if current_user.temp? && !["/", "/signup", "/signin"].include?(request.env['PATH_INFO'])  %>
-    <div class="container nopadding">
-        <div class="alert alert-info fade in text-center">
-          Merci d’utiliser SPACEF!T, enregistrez-vous maintenant et bénéficier de futurs avantages.
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="alert alert-info fade in text-center">
+            Merci d’utiliser SPACEF!T, enregistrez-vous maintenant et bénéficier de futurs avantages.
+          </div>
         </div>
+      </div>
     </div>
   <% end %>
 
   <% flash.each do |message_type, message| %>
-    <div class="container nopadding">
+    <div class="container">
       <div class="alert alert-<%= message_type %> fade in text-center" ><%= message %></div>
     </div>
   <% end %>
 
-  <%= yield %>
+  <div class="container">
+    <%= yield %>
+  </div>
+
   <%= render partial: 'layouts/footer' %>
 
   <script type="text/javascript" src="//cdn.rawgit.com/icons8/bower-webicon/v0.10.7/jquery-webicon.min.js"></script>

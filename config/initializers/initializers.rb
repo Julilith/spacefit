@@ -1,30 +1,33 @@
 #—————————————————————————————————————————————————————————————————————————————————#
-#————                      >>>>>>>>>set omniauth<<<<<<<<<                     ————#
-#—————————————————————————————————————————————————————————————————————————————————#
-
-# OmniAuth initializer
-Rails.application.config.middleware.use OmniAuth::Builder do
-		#Facebook
-		provider :facebook, ENV['FACEBOOK_KEY'], ENV['FACEBOOK_SECRET'],
-		scope: ['email',
-			'user_birthday',
-			'user_relationship_details',
-			'user_education_history',
-			'user_work_history'].join(',')
-		end
-
-#—————————————————————————————————————————————————————————————————————————————————#
 #————                      >>>>>>>>>initialize environment<<<<<<<<<           ————#
 #—————————————————————————————————————————————————————————————————————————————————#
 
 
 # ENV initializer
 	#define a YAML file with env info
-	env_file = File.join(Rails.root, 'config', 'app_env.yml')
+	env_file = File.join(Rails.root, 'config', 'application.yml')
 	#read and set the variables
 	YAML.load(File.open(env_file)).each do |key, value|
 		ENV[key.to_s] = value.to_s
 	end if File.exists?(env_file)
+
+#—————————————————————————————————————————————————————————————————————————————————#
+#————                      >>>>>>>>>set omniauth<<<<<<<<<                     ————#
+#—————————————————————————————————————————————————————————————————————————————————#
+
+
+# OmniAuth initializer
+Rails.application.config.middleware.use OmniAuth::Builder do
+		#Facebook
+		provider :facebook, ENV['FB_APP_ID'], ENV['FB_APP_SECRET'],
+		info_fields: ['email',"public_profile "].join(',')
+		scope: ['email',
+			'user_name'
+			'user_birthday',
+			'user_relationship_details'].join(',')
+		end
+
+
 
 
 #—————————————————————————————————————————————————————————————————————————————————#

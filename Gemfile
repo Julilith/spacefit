@@ -23,8 +23,6 @@ gem 'font-awesome-sass'
 #things we might not need
 gem 'simple_form'
 
-gem 'rails_12factor', group: :production
-gem 'puma',           group: :production
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -36,7 +34,7 @@ gem 'tzinfo-data', platforms: [:x64_mingw,:mingw, :mswin]
 # authentications with facebook/
 gem 'omniauth'
 gem 'omniauth-facebook'
-
+gem "certified" , group: :development # ensures certification for omniauth
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
@@ -45,6 +43,7 @@ gem 'omniauth-facebook'
 group :production do
 	gem "pg"
 	gem "rails_12factor"
+	gem 'puma'
 end
 
 group :development do

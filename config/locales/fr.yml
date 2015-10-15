@@ -1,0 +1,9 @@
+fr:
+  hello: "Hello world"
+
+
+#type.html
+  type_intro: "Choose your kind of exercice"
+
+#new.html.erb
+  already_account: "Do you already have an account?"

@@ -13,11 +13,7 @@ class BaseController < ApplicationController
 private
 
 	def require_disclaimer
-		if !current_user.signed_in?
-			if !current_user.disclaimer
-				redirect_to root_path
-			end
-		end
+		redirect_to root_path if (!current_user.signed_in? || current_user.disclaimer!=true)
 	end
 
 	def success_reply(mes="Yeah, we made it!", path_="/")

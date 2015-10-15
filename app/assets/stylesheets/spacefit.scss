@@ -9,9 +9,12 @@ body {
 }
 
 .container {
-  max-width: 600px;
-  flex-grow: 1;
+ max-width: 600px;
   width: 100%;
+}
+
+.full-height {
+  flex-grow: 1;
 }
 .like-video-btn{
   cursor: pointer;
@@ -205,3 +208,48 @@ float: right!important;
   padding-bottom: 15px;
   line-height: 20px;
 }
+
+#home_carousel{
+  .carousel-inner{
+    height: inherit;
+    .item{
+      height: inherit;
+      div{
+        height: inherit;
+      }
+
+      #image3{
+        background: image_url("Stretch_Up_Welcome.jpg") no-repeat center / cover;
+      }
+      #image2{
+        background: image_url("RLX_Welcome.jpg") no-repeat center / cover;
+      }
+      #image1{
+        background: image_url("Fit_Seatted_Welcome.jpg") no-repeat center / cover;
+      }
+    }
+  }
+}
+
+  .take_all_space{
+    position: absolute ;
+    left: 0 ;
+    right: 0 ;
+    bottom: 0 ;
+    top: 0 ;
+  }
+
+  .move_bottom{
+    position: absolute ;
+    left: 0 ;
+    right: 0 ;
+    bottom: 0 ;
+  }
+
+  #homepage{
+    position:"relative";
+    #choises{
+      margin: 30px 15px;
+
+    }
+  }

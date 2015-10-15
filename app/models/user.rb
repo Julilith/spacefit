@@ -9,6 +9,8 @@ end
 
 class User < Basemodel
 
+	attr_accessor :skip_disclaimer
+
 	#———————————————————————————————————Class data——————————————————————————————————#
 	#---------------------------------- User providers
 	PROVIDER_TYPES=["facebook", "native", "temp0", "temp"]
@@ -75,6 +77,7 @@ class User < Basemodel
 	#———————————————————————————————————Validations—————————————————————————————————#
 	validates :password,   length: {minimum: 4, maximum: 25}, allow_nil: true
 	validates :emails  ,   presence:   true
+	validates :disclaimer, inclusion: { in: [true]}, if: ->(rec_){ rec_.skip_disclaimer!=true }
 	validates :provider,   inclusion: { in: PROVIDER_TYPES }
 	validates :reminder,   inclusion: { in: [true, false] }
 	validates :every,      numericality: { only_integer: true }
@@ -87,10 +90,10 @@ class User < Basemodel
 
 	# add random password for Linked in and Fb accounts
 	before_validation ->{ if self.password.blank? && !(["native","temp"].include?(self.provider))
-												lput "this is active"
 													self.password=Token.new.value.to_s
 													self.password_confirmation=self.password
 												end}, on: :create
+
 
 	#———————————————————————————————————Methods—————————————————————————————————————#
 
@@ -116,12 +119,19 @@ class User < Basemodel
 		return _token
 	end
 
+	def populate_non_native_user
+		self.password=Token.new.value.to_s
+		self.password_confirmation=self.password
+		self
+	end
+
 	def self.build_dummy_user(token_=Token.new)
 		_tuser            = User.new
 		_tuser.provider   = "temp"
 		_tuser.disclaimer = false
 		_tuser.populate_temp_user(token_)
-		_tuser.save(validate: false)
+		_tuser.skip_disclaimer=true
+		_tuser.save
 		_tuser
 	end
 
@@ -181,7 +191,11 @@ class User < Basemodel
 		self.attributes={provider:                auth_obj.provider,
 										 email:                   info.email,
 										 name:                    name,
-										 info_attributes:         basics}
+										 language: "en"}
+
+		self.skip_disclaimer = true
+
+		self.populate_non_native_user
 	end
 
 	#———————————————————————————————————————————————————————————————————————————————#
