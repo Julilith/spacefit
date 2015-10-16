@@ -169,8 +169,7 @@ _media=[
 	{:wo_type=>"fit", :location=>"unknown", :position=>"up", :link=>"https://player.vimeo.com/video/142284568"},
 	{:wo_type=>"stretch", :location=>"unknown", :position=>"sit", :link=>"https://player.vimeo.com/video/142160136"},
 	{:wo_type=>"fit", :location=>"unknown", :position=>"sit", :link=>"https://player.vimeo.com/video/142130830"}
-	]
-
+  ]
 
 Quote.destroy_all
 Media.destroy_all
