@@ -78,7 +78,7 @@
               <% if _workout_data==[[0,0]] %>
                 0 exercises done. Choose a your type to start
               <% else %>
-                <%= pluralize _workout_data.map {|e| e[1]}.inject(&:+), "exercise" %> dans
+                <%= pluralize _workout_data.map {|e| e[1]}.inject(&:+), "exercise" %> en
                 <%= pluralize _workout_data.last[0]-_workout_data.first[0], "jour" %>
               <% end %>
             </div>
@@ -101,7 +101,7 @@
             </ul>
           <% end %>
 
-          <h2>J'aimerai...</h2>
+          <h2 class="text-center">J'aimerai...</h2>
         </div>
 
        <%= render 'shared/buttons' %>
