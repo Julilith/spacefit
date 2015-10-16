@@ -168,11 +168,8 @@ _media=[
 	{:wo_type=>"stretch", :location=>"unknown", :position=>"up", :link=>"https://player.vimeo.com/video/142349746"},
 	{:wo_type=>"fit", :location=>"unknown", :position=>"up", :link=>"https://player.vimeo.com/video/142284568"},
 	{:wo_type=>"stretch", :location=>"unknown", :position=>"sit", :link=>"https://player.vimeo.com/video/142160136"},
-	{:wo_type=>"fit", :location=>"unknown", :position=>"sit", :link=>"https://player.vimeo.com/video/142130830"},
-  {:wo_type=>"relax", :location=>"home", :position=>"unknown", :link=>"https://player.vimeo.com/video/128991891?title=0&byline=0&portrait=0"},
-  {:wo_type=>"relax", :location=>"office", :position=>"unknown", :link=>"https://player.vimeo.com/video/82750427"},
-  {:wo_type=>"relax", :location=>"travel", :position=>"unknown", :link=>"https://player.vimeo.com/video/78954233?byline=0&portrait=0"}
-	]
+	{:wo_type=>"fit", :location=>"unknown", :position=>"sit", :link=>"https://player.vimeo.com/video/142130830"}
+  ]
 
 Quote.destroy_all
 Media.destroy_all
